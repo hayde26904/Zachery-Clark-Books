@@ -17,7 +17,7 @@
 body {
     font-family: "Source Serif 4", Georgia, serif;
     color: var(--ink);
-    background: linear-gradient(165deg, #07080c 0%, #04050a 55%, #010203 100%);
+    background: #000;
     min-height: 100vh;
     line-height: 1.5;
     position: relative;
@@ -28,9 +28,7 @@ body::before {
     position: fixed;
     inset: 0;
     pointer-events: none;
-    background:
-        radial-gradient(ellipse at 50% 45%, rgba(0, 0, 0, 0) 28%, rgba(0, 0, 0, 0.36) 72%, rgba(0, 0, 0, 0.78) 100%),
-        linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.18) 30%, rgba(0, 0, 0, 0.45));
+    background: none;
     z-index: -1;
 }
 
@@ -46,11 +44,11 @@ h2 {
 }
 
 .page-head {
-    min-height: 84vh;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 3.6rem 0;
+    padding: 2.6rem 0;
 }
 
 .kicker {
@@ -65,10 +63,42 @@ h2 {
 .page-head h1 {
     font-size: clamp(2.4rem, 7vw, 5.8rem);
     line-height: 0.94;
-    margin: 0.35rem 0 0;
+    margin: 0;
     max-width: 15ch;
     text-shadow: 0 8px 22px rgba(0, 0, 0, 0.6);
     white-space: nowrap;
+}
+
+.front-promo {
+    margin-top: 0.35rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 46vw);
+    align-items: start;
+    gap: clamp(3.5rem, 9vw, 10rem);
+}
+
+.front-promo-tagline {
+    margin: 0;
+    color: #c62121;
+    font-family: "Bebas Neue", Impact, sans-serif;
+    letter-spacing: 0.04em;
+    font-size: clamp(1.6rem, 3.5vw, 3rem);
+    text-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+}
+
+.front-promo-image {
+    width: 100%;
+    max-width: 560px;
+    justify-self: end;
+    height: auto;
+    border: 0;
+    box-shadow: none;
+    opacity: 0.86;
+    filter: grayscale(1) contrast(1.06) brightness(0.74);
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 42%, rgba(0, 0, 0, 0.84) 62%, rgba(0, 0, 0, 0.4) 80%, rgba(0, 0, 0, 0) 100%);
+    mask-image: radial-gradient(ellipse at center, #000 42%, rgba(0, 0, 0, 0.84) 62%, rgba(0, 0, 0, 0.4) 80%, rgba(0, 0, 0, 0) 100%);
 }
 
 .novels-carousel {
@@ -158,19 +188,19 @@ h2 {
     background: transparent;
     position: relative;
     overflow: hidden;
-    --section-tint: rgba(9, 11, 16, 0.28);
+    --section-tint: rgba(0, 0, 0, 0);
 }
 
 .book-section:nth-of-type(1) {
-    --section-tint: rgba(9, 11, 16, 0.28);
+    --section-tint: rgba(0, 0, 0, 0);
 }
 
 .book-section:nth-of-type(2) {
-    --section-tint: rgba(11, 10, 14, 0.3);
+    --section-tint: rgba(0, 0, 0, 0);
 }
 
 .book-section:nth-of-type(3) {
-    --section-tint: rgba(8, 12, 13, 0.3);
+    --section-tint: rgba(0, 0, 0, 0);
 }
 
 .book-section+.book-section {
@@ -223,8 +253,12 @@ h2 {
     min-height: 485px;
 }
 
+.index-page .book-copy .book-title {
+    margin-top: 1.5rem;
+}
+
 .index-page .book-copy .book-short-description {
-    margin-top: 1.6rem;
+    margin-top: 2.6rem;
     margin-bottom: 0;
 }
 
@@ -232,15 +266,30 @@ h2 {
     min-height: 1.5em;
 }
 
-.index-page .book-copy .book-reviews {
+.index-page .book-copy .book-footer {
     margin-top: auto;
+    padding-top: 1.2rem;
+    padding-bottom: 2.2rem;
+}
+
+.index-page .book-copy .book-reviews {
+    margin-top: 0;
     padding-top: 0.4rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1.4rem;
 }
 
 .index-page .book-copy .read-more-btn {
     align-self: flex-start;
-    margin-bottom: 2.8rem;
+    margin-bottom: 0;
+}
+
+.index-page .book-copy .book-links {
+    justify-content: flex-start;
+    margin-top: 0.4rem;
+}
+
+.index-page .book-copy .book-links .read-more-btn {
+    margin-bottom: 0;
 }
 
 .book-copy {
@@ -454,7 +503,7 @@ h2 {
 }
 
 .fade-section {
-    opacity: 0.14;
+    opacity: 0;
     transform: translateY(26px);
     transition: opacity 520ms ease, transform 520ms ease;
 }
@@ -472,6 +521,16 @@ h2 {
     .page-head {
         min-height: auto;
         padding: 3rem 0;
+    }
+
+    .front-promo {
+        grid-template-columns: 1fr;
+        gap: 0.9rem;
+    }
+
+    .front-promo-image {
+        justify-self: start;
+        max-width: min(92vw, 520px);
     }
 
     .book-section {
@@ -513,6 +572,12 @@ h2 {
 
     .index-page .book-copy {
         min-height: auto;
+    }
+
+    .index-page .book-copy .book-footer {
+        margin-top: 0.6rem;
+        padding-top: 0;
+        padding-bottom: 0;
     }
 
     .index-page .book-copy .book-reviews {

@@ -42,7 +42,7 @@
                         <!-- <a class="read-more-btn" href="<%= book.readMoreUrl %>" target="_blank" rel="noopener noreferrer">View on Goodreads</a> -->
                          <% if (book.links && book.links.length > 0) { %>
                             <% book.links.forEach(link => { %>
-                                <a class="read-more-btn" href="<%= link.url %>" target="_blank" rel="noopener noreferrer">View on <%= link.name %></a>
+                                <a class="read-more-btn" href="<%= link.url %>" target="_blank" rel="noopener noreferrer"><%= link.name %></a>
                             <% }); %>
                         <% } %>
                     </div>

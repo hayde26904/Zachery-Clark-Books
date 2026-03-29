@@ -16,7 +16,11 @@
 <body class="index-page">
     <main>
         <header class="page-head wrap">
-            <h1>Zachery Clark</h1>
+            <h1>Author Zachery Clark</h1>
+            <div class="front-promo" aria-label="Featured author image and tagline">
+                <p class="front-promo-tagline">Find your next obsession.</p>
+                <img src="/assets/img/scaryzach.jpg" alt="Zachery Clark portrait" class="front-promo-image" />
+            </div>
         </header>
 
         <section class="novels-carousel wrap" aria-label="Novel carousel" id="novels-carousel">
@@ -34,30 +38,39 @@
                             <div class="book-short-description">
                                 <b><%= book.shortDescription %></b>
                             </div>
-                            <% if (book.reviews && book.reviews.length > 0) { %>
-                                <div class="book-reviews">
-                                <% book.reviews.forEach((review) => { %>
-                                    <% const rating = Number(review.scoreOutOf5.toFixed(1)) || 0; %>
-                                    <% const clampedRating = Math.floor(rating); %>
-                                    <% const lastStarFillPercent = Math.floor(((rating % 1) * 100)); %>
-                                    <div class="book-review">
-                                        <div class="book-review-copy">
-                                            <p class="book-review-meta"><strong><%= review.publicationName %></strong> • <%= rating %>/5</p>
-                                            <p class="book-rating-stars" aria-label="Rated <%= rating.toFixed(1) %> out of 5 on <%= review.publicationName %>">
-                                                <% for (let starIndex = 0; starIndex < 5; starIndex++) { %>
-                                                    <% const starFillPercentage = (starIndex < clampedRating) ? 100 : lastStarFillPercent %>
-                                                    <span class="book-rating-star" aria-hidden="true">
-                                                        <span class="book-rating-star-empty">★</span>
-                                                        <span class="book-rating-star-filled" style="--star-fill-percentage: <%= starFillPercentage %>%">★</span>
-                                                    </span>
-                                                <% } %>
-                                            </p>
+                            <div class="book-footer">
+                                <% if (book.reviews && book.reviews.length > 0) { %>
+                                    <div class="book-reviews">
+                                    <% book.reviews.forEach((review) => { %>
+                                        <% const rating = Number(review.scoreOutOf5.toFixed(1)) || 0; %>
+                                        <% const clampedRating = Math.floor(rating); %>
+                                        <% const lastStarFillPercent = Math.floor(((rating % 1) * 100)); %>
+                                        <div class="book-review">
+                                            <div class="book-review-copy">
+                                                <p class="book-review-meta"><strong><%= review.publicationName %></strong> • <%= rating %>/5</p>
+                                                <p class="book-rating-stars" aria-label="Rated <%= rating.toFixed(1) %> out of 5 on <%= review.publicationName %>">
+                                                    <% for (let starIndex = 0; starIndex < 5; starIndex++) { %>
+                                                        <% const starFillPercentage = (starIndex < clampedRating) ? 100 : lastStarFillPercent %>
+                                                        <span class="book-rating-star" aria-hidden="true">
+                                                            <span class="book-rating-star-empty">★</span>
+                                                            <span class="book-rating-star-filled" style="--star-fill-percentage: <%= starFillPercentage %>%">★</span>
+                                                        </span>
+                                                    <% } %>
+                                                </p>
+                                            </div>
                                         </div>
+                                    <% }); %>
                                     </div>
-                                <% }); %>
+                                <% } %>
+                                <div class="book-links">
+                                    <a class="read-more-btn" href="/books/<%= book.slug %>">Read more</a>
+                                    <% if (book.links && book.links.length > 0) { %>
+                                        <% book.links.forEach(link => { %>
+                                            <a class="read-more-btn" href="<%= link.url %>" target="_blank" rel="noopener noreferrer"><%= link.name %></a>
+                                        <% }); %>
+                                    <% } %>
                                 </div>
-                            <% } %>
-                            <a class="read-more-btn" href="/books/<%= book.slug %>">Read more</a>
+                            </div>
                         </div>
                     </div>
                 </section>
