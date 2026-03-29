@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= book.title %> | Zachery Clark</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body class="book-page">
+    <main>
+        <section class="book-section fade-section in-view">
+            <div class="book-inner wrap">
+                <div class="cover-shell">
+                    <img src="/<%= book.cover %>" class="book-cover" alt="<%= book.coverAlt %>" />
+                </div>
+                <div class="book-copy">
+                    <h2 class="book-title"><%- book.title %></h2>
+                    <% if (book.subtitle) { %>
+                    <h3 class="book-subtitle"><%= book.subtitle %></h3>
+                    <% } %>
+                    <div class="book-summary" style="max-height: none;">
+                        <% if (book.summaryLead) { %>
+                        <b>“<%= book.summaryLead %>”</b>
+                        <br><br>
+                        <% } %>
+                        <% book.summary.forEach((paragraph, index) => { %>
+                        <p><%= paragraph %></p>
+                        <% if (index !== book.summary.length - 1) { %>
+                        <br>
+                        <% } %>
+                        <% }); %>
+                    </div>
+                    <div class="book-links" style="justify-content: flex-start; margin-top: 1rem;">
+                        <a class="read-more-btn" href="/#novels-carousel">Back to all novels</a>
+                        <!-- <a class="read-more-btn" href="<%= book.readMoreUrl %>" target="_blank" rel="noopener noreferrer">View on Goodreads</a> -->
+                         <% if (book.links && book.links.length > 0) { %>
+                            <% book.links.forEach(link => { %>
+                                <a class="read-more-btn" href="<%= link.url %>" target="_blank" rel="noopener noreferrer">View on <%= link.name %></a>
+                            <% }); %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

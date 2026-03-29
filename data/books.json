@@ -1,0 +1,107 @@
+[
+	{
+		"title": "Mayhem at Midnight",
+		"subtitle": "",
+		"cover": "assets/covers/mayhematmidnight.jpg",
+		"coverAlt": "Mayhem at Midnight book cover",
+		"shortDescription": "A chilling psychological thriller that explores the cost of obsession, the fragility of identity, and the terrifying moment when a storyteller becomes the story.",
+		"reviews": [
+			{
+				"publicationName": "Goodreads",
+				"scoreOutOf5": 4.84
+			},
+			{
+				"publicationName": "Amazon",
+				"scoreOutOf5": 4.9
+			}
+		],
+		"summary": [
+			"He came seeking a story. What he found was a mirror.",
+			"At what moment does a storyteller intertwine with the very tale they weave?",
+			"When an ambitious writer, consumed by his desire for inspiration, finds himself face-to-face with a notorious serial killer to craft the definitive true crime book, how deep must he delve into the darkness before losing his identity and transforming into the monster he initially sought to comprehend?",
+			"What begins as research becomes ritual. What was once curiosity turns into compulsion."
+		],
+		"links": [
+			{
+				"name": "Goodreads",
+				"url": "https://www.goodreads.com/book/show/223821264-mayhem-at-midnight"
+			}
+		]
+	},
+	{
+		"title": "Built From Her Bones",
+		"subtitle": "A Mayhem at Midnight Novel",
+		"cover": "assets/covers/builtfromherbones.jpg",
+		"coverAlt": "Built From Her Bones book cover",
+		"shortDescription": "A gritty, heart-pounding noir thriller, Built from Her Bones weaves a tale of vengeance, redemption, and the cost of chasing monsters in a city that never sleeps.",
+		"reviews": [
+			{
+				"publicationName": "Goodreads",
+				"scoreOutOf5": 4.59
+			},
+			{
+				"publicationName": "Amazon",
+				"scoreOutOf5": 5
+			}
+		],
+		"summary": [
+			"In the rain-soaked streets of Port Sentinel, Special Agent Damon Parker hunts a killer whose crimes echo the darkest moment of his past: the brutal murder of his mother. Each body left behind is a meticulously staged tableau, marked by a single lilac petal, a chilling signature that drags Damon back to the night his world shattered. As the body count rises, the killer, Anthony Vexler, a man of chilling precision and hidden scars, plays a deadly game, taunting Damon with cryptic messages and personal relics.",
+			"With his team, rookie Joe Ortega and sharp profiler Natalie Rivera, Damon chases leads through seedy bars, decaying apartments, and forgotten parks, unraveling a pattern that points to a mastermind orchestrating chaos from the shadows. But every step closer to Vexler pulls Damon deeper into his trauma, threatening to break him before he can stop the next kill. As the stakes escalate and allies fall, Damon must confront the ghosts of his past to end the game or become its final piece."
+		],
+		"links": [
+			{
+				"name": "Goodreads",
+				"url": "https://www.goodreads.com/book/show/240250632-built-from-her-bones"
+			}
+		]
+	},
+	{
+		"title": "Patchwork",
+		"subtitle": "Chronicles of the Mind",
+		"cover": "assets/covers/patchworkchronicalsofthemind.jpg",
+		"coverAlt": "Patchwork: Chronicles of the Mind book cover",
+		"shortDescription": "Bite-sized stories inspired by random writing prompts and long nights filled with caffeine-fueled boredom. Think of them as mental popcorn: quick, crunchy, and oddly satisfying.",
+		"reviews": [
+			{
+				"publicationName": "Goodreads",
+				"scoreOutOf5": 5
+			}
+		],
+		"summary": [
+			"I began writing them to keep my mind from turning into mush during those 2 a.m. existential crises. Now, I'm sharing them so you can take a glimpse into the chaos. They're perfect for those moments when you're stuck in the bathroom, forgot your phone, and suddenly realize you have nothing but your thoughts and questionable tile grout to stare at.",
+			"You're welcome."
+		],
+		"links": [
+			{
+				"name": "Goodreads",
+				"url": "https://www.goodreads.com/book/show/217051632-patchwork-chronicles-of-the-mind"
+			}
+		]
+	},
+	{
+		"title": "Misadventures of Zeke and Liz",
+		"subtitle": "The ARG Bureau",
+		"cover": "assets/covers/misadventuresofzekeandliz.jpg",
+		"coverAlt": "Misadventures of Zeke and Liz book cover",
+		"shortDescription": "Darkly satirical, psychologically gripping, and eerily plausible, a story about how institutions crumble when they mistake fiction for fact, and how obsession can turn surveillance into self-destruction.",
+		"reviews": [
+			{
+				"publicationName": "Goodreads",
+				"scoreOutOf5": 4.75
+			}
+		],
+		"summaryLead": "When conspiracies become code, reality is the game.",
+		"summary": [
+			"TFBI agents Tom Kendrick and Carla Mendez are assigned to monitor two fringe conspiracy streamers, Zeke and Elizabeth. What starts as routine surveillance quickly turns into obsession as the pair's cryptic broadcasts begin aligning with real-world anomalies: financial transfers, coded threats, and echoes of past collapses.",
+			"Drawn further onto the web, Tom drinks to silence the voices invading his dreams, while Carla creates a shrine of notes and red string in her apartment. Treasury analysts, CIA operatives, and even the Bureau itself become entangled in the spiral, chasing phantom funds and recursive signals that seem meant to trap them. But the deeper they go, the line between fact and fiction blurs.",
+			"Zeke and Elizabeth's language shifts into the grammar of games, final bosses, PvP arenas, and loot drops until the agents realize the unthinkable: they are not tracking terrorists but players in an elaborate alternate reality."
+		],
+		"links": [
+			{
+				"name": "Goodreads",
+				"url": "https://www.goodreads.com/book/show/244603214-misadventures-of-zeke-and-liz"
+			}
+		]
+		
+	}
+]
