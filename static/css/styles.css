@@ -2,6 +2,7 @@
     --ink: #f0ece2;
     --paper: #050608;
     --wine: #8f2a2a;
+    --blood: #790000;
     --rust: #e08e66;
     --fog: #0d1016;
     --line: #6f7681;
@@ -37,18 +38,42 @@ body::before {
     margin: 0 auto;
 }
 
-h1,
-h2 {
-    font-family: "Bebas Neue", Impact, sans-serif;
-    letter-spacing: 0.04em;
-}
-
 .page-head {
-    min-height: 90vh;
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 2.6rem 0;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.mayhem-tagline {
+    color: var(--ink);
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.48);
+    text-align: center;
+    line-height: 1.1;
+    max-width: 100%;
+    font-weight: bold;
+}
+
+h1.mayhem-tagline {
+    font-size: clamp(6rem, 12vw, 9rem);
+}
+
+h2.mayhem-tagline {
+    font-size: clamp(4rem, 6vw, 6rem);
+}
+
+h3.mayhem-tagline {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.mayhem-tagline.author {
+    color: var(--blood);
 }
 
 .kicker {
@@ -60,45 +85,28 @@ h2 {
     margin: 0;
 }
 
-.page-head h1 {
-    font-size: clamp(2.4rem, 7vw, 5.8rem);
-    line-height: 0.94;
-    margin: 0;
-    max-width: 15ch;
-    text-shadow: 0 8px 22px rgba(0, 0, 0, 0.6);
-    white-space: nowrap;
-}
-
-.front-promo {
-    margin-top: 0.35rem;
-    width: 100%;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(320px, 46vw);
-    align-items: start;
-    gap: clamp(3.5rem, 9vw, 10rem);
-}
-
-.front-promo-tagline {
-    margin: 0;
-    color: #c62121;
-    font-family: "Bebas Neue", Impact, sans-serif;
-    letter-spacing: 0.04em;
-    font-size: clamp(1.6rem, 3.5vw, 3rem);
-    text-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
-    white-space: nowrap;
-}
-
-.front-promo-image {
-    width: 100%;
-    max-width: 560px;
-    justify-self: end;
+.front-promo-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: clamp(320px, 120vmin, 860px);
     height: auto;
-    border: 0;
-    box-shadow: none;
-    opacity: 0.86;
-    filter: grayscale(1) contrast(1.06) brightness(0.74);
-    -webkit-mask-image: radial-gradient(ellipse at center, #000 42%, rgba(0, 0, 0, 0.84) 62%, rgba(0, 0, 0, 0.4) 80%, rgba(0, 0, 0, 0) 100%);
-    mask-image: radial-gradient(ellipse at center, #000 42%, rgba(0, 0, 0, 0.84) 62%, rgba(0, 0, 0, 0.4) 80%, rgba(0, 0, 0, 0) 100%);
+    max-height: 120vh;
+    display: block;
+    margin: 0;
+    transform: translate(-50%, -50%); /*translateX(-160px); */
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.88;
+    filter: brightness(0.8) saturate(0.7) contrast(1.5) blur(0.3px);
+    box-shadow: inset 0 0 420px rgba(0, 0, 0, 0.94);
+    -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 34%, rgba(0, 0, 0, 0.78) 58%, rgba(0, 0, 0, 0.22) 78%, rgba(0, 0, 0, 0) 100%);
+    mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 34%, rgba(0, 0, 0, 0.78) 58%, rgba(0, 0, 0, 0.22) 78%, rgba(0, 0, 0, 0) 100%);
+}
+
+.page-head > :not(.front-promo-background) {
+    position: relative;
+    z-index: 1;
 }
 
 .novels-carousel {
@@ -255,6 +263,7 @@ h2 {
 
 .index-page .book-copy .book-title {
     margin-top: 1.5rem;
+    
 }
 
 .index-page .book-copy .book-short-description {
@@ -352,6 +361,8 @@ h2 {
     text-shadow: 0 5px 16px rgba(0, 0, 0, 0.52);
     white-space: nowrap;
     line-height: 1.1;
+    text-transform: uppercase;
+    text-align: center;
 }
 
 .book-subtitle {
@@ -359,10 +370,12 @@ h2 {
     margin-bottom: 0px;
     margin-left: auto;
     margin-right: auto;
-    font-family: "Bebas Neue", Impact, sans-serif;
     font-size: 25px;
     letter-spacing: 0.05em;
-    color: rgba(248, 244, 234, 0.88);
+    color: rgba(255, 255, 255, 0.88);
+    text-transform: uppercase;
+    font-weight: 100;
+    text-align: center;
 }
 
 .book-section p {
@@ -519,8 +532,22 @@ h2 {
 
 @media (max-width: 1000px) {
     .page-head {
-        min-height: auto;
+        min-height: 100vh;
+        min-height: 100svh;
+        min-height: 100dvh;
         padding: 3rem 0;
+    }
+
+    h1.mayhem-tagline {
+        font-size: clamp(3rem, 14vw, 5.5rem);
+    }
+
+    h2.mayhem-tagline {
+        font-size: clamp(2rem, 9vw, 3.5rem);
+    }
+
+    h3.mayhem-tagline {
+        font-size: clamp(1.2rem, 5vw, 2rem);
     }
 
     .front-promo {
@@ -528,9 +555,11 @@ h2 {
         gap: 0.9rem;
     }
 
-    .front-promo-image {
-        justify-self: start;
-        max-width: min(92vw, 520px);
+    .front-promo-background {
+        top: 50%;
+        left: 50%;
+        width: min(110vw, 1000px);
+        
     }
 
     .book-section {
@@ -552,7 +581,22 @@ h2 {
         gap: 1.5rem;
     }
 
-    .cover-shell {
+    .book-page .book-inner {
+        gap: 0.9rem;
+        align-items: start;
+    }
+
+
+
+    .book-page .cover-shell {
+        width: min(70vw, 250px);
+        height: auto;
+        max-width: none;
+        aspect-ratio: 2 / 3;
+        justify-self: center;
+    }
+
+    .index-page .cover-shell {
         width: min(70vw, 250px);
         height: auto;
         max-width: none;
@@ -562,6 +606,15 @@ h2 {
 
     .book-page .cover-shell {
         width: min(76vw, 300px);
+    }
+
+    .book-title {
+        
+        font-size: clamp(1.2rem, 8vw, 3.4rem);
+    }
+
+    .book-subtitle {
+        font-size: clamp(0.88rem, 5vw, 1.2rem);
     }
 
     .book-section .book-cover {

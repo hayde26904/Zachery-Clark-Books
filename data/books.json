@@ -1,5 +1,5 @@
-[
-	{
+{
+	"mayhem_at_midnight": {
 		"title": "Mayhem at Midnight",
 		"subtitle": "",
 		"cover": "assets/covers/mayhematmidnight.jpg",
@@ -28,7 +28,7 @@
 			}
 		]
 	},
-	{
+	"built_from_her_bones": {
 		"title": "Built From Her Bones",
 		"subtitle": "A Mayhem at Midnight Novel",
 		"cover": "assets/covers/builtfromherbones.jpg",
@@ -55,7 +55,7 @@
 			}
 		]
 	},
-	{
+	"patchwork": {
 		"title": "Patchwork",
 		"subtitle": "Chronicles of the Mind",
 		"cover": "assets/covers/patchworkchronicalsofthemind.jpg",
@@ -68,7 +68,7 @@
 			}
 		],
 		"summary": [
-			"I began writing them to keep my mind from turning into mush during those 2 a.m. existential crises. Now, I'm sharing them so you can take a glimpse into the chaos. They're perfect for those moments when you're stuck in the bathroom, forgot your phone, and suddenly realize you have nothing but your thoughts and questionable tile grout to stare at.",
+			"I began writing these stories to keep my mind from turning into mush during those 2 a.m. existential crises. Now, I'm sharing them so you can take a glimpse into the chaos. They're perfect for those moments when you're stuck in the bathroom, forgot your phone, and suddenly realize you have nothing but your thoughts and questionable tile grout to stare at.",
 			"You're welcome."
 		],
 		"links": [
@@ -78,8 +78,8 @@
 			}
 		]
 	},
-	{
-		"title": "Misadventures of Zeke and Liz",
+	"misadventures_of_zeke_and_liz": {
+		"title": "Misadventures of\nZeke and Liz",
 		"subtitle": "The ARG Bureau",
 		"cover": "assets/covers/misadventuresofzekeandliz.jpg",
 		"coverAlt": "Misadventures of Zeke and Liz book cover",
@@ -102,6 +102,5 @@
 				"url": "https://www.goodreads.com/book/show/244603214-misadventures-of-zeke-and-liz"
 			}
 		]
-		
 	}
-]
+}

@@ -1,4 +1,5 @@
 const carouselTrack = document.querySelector('.carousel-track');
+const carouselRoot = document.querySelector('.novels-carousel');
 const carouselPrev = document.querySelector('.carousel-btn-prev');
 const carouselNext = document.querySelector('.carousel-btn-next');
 const carouselDots = document.querySelector('.carousel-dots');
@@ -20,7 +21,7 @@ function setActiveSlide(index) {
   });
 }
 
-function goToSlide(index) {
+function goToSlide(index, behavior = 'smooth') {
   if (!carouselTrack || slides.length === 0) {
     return;
   }
@@ -29,9 +30,20 @@ function goToSlide(index) {
   const targetSlide = slides[wrappedIndex];
   carouselTrack.scrollTo({
     left: targetSlide.offsetLeft,
-    behavior: 'smooth'
+    behavior
   });
   setActiveSlide(wrappedIndex);
+}
+
+function getInitialSlideIndex() {
+  const startIndexRaw = carouselRoot?.dataset?.startIndex;
+  const parsedIndex = Number.parseInt(startIndexRaw || '', 10);
+
+  if (!Number.isFinite(parsedIndex) || slides.length === 0) {
+    return 0;
+  }
+
+  return Math.min(Math.max(parsedIndex, 0), slides.length - 1);
 }
 
 if (carouselTrack && slides.length > 0) {
@@ -49,7 +61,8 @@ if (carouselTrack && slides.length > 0) {
     });
   }
 
-  setActiveSlide(0);
+  const initialSlideIndex = getInitialSlideIndex();
+  goToSlide(initialSlideIndex, 'auto');
 
   carouselPrev?.addEventListener('click', () => {
     goToSlide(activeSlideIndex - 1);

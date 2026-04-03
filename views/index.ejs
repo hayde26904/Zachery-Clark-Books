@@ -10,20 +10,20 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/static/css/styles.css" />
 </head>
 
 <body class="index-page">
     <main>
         <header class="page-head wrap">
-            <h1>Author Zachery Clark</h1>
-            <div class="front-promo" aria-label="Featured author image and tagline">
-                <p class="front-promo-tagline">Find your next obsession.</p>
-                <img src="/assets/img/scaryzach.jpg" alt="Zachery Clark portrait" class="front-promo-image" />
-            </div>
+            <img src="/assets/img/alley2.jpg" alt="Mayhem Universe" class="front-promo-background" />
+            <h2 class="mayhem-tagline">THE</h2>
+            <h1 class="mayhem-tagline">MAYHEM<br>UNIVERSE</h1>
+            <h3 class="mayhem-tagline">TRUTH HIDES IN THE ALLEYS</h3>
+            <h2 class="mayhem-tagline author">ZC</h2>
         </header>
 
-        <section class="novels-carousel wrap" aria-label="Novel carousel" id="novels-carousel">
+        <section class="novels-carousel wrap" aria-label="Novel carousel" id="novels-carousel" data-start-index="<%= initialSlideIndex %>">
             <button class="carousel-btn carousel-btn-prev" type="button" aria-label="Previous novel">&#10094;</button>
             <div class="carousel-track">
                 <% books.forEach((book) => { %>
@@ -33,7 +33,7 @@
                             <img src="/<%= book.cover %>" class="book-cover" alt="<%= book.coverAlt %>" />
                         </div>
                         <div class="book-copy">
-                            <h2 class="book-title"><%- book.title %></h2>
+                            <h2 class="book-title"><%- book.title.replace('\n', '<br>') %></h2>
                             <h3 class="book-subtitle"><%= book.subtitle || '\u00A0' %></h3>
                             <div class="book-short-description">
                                 <b><%= book.shortDescription %></b>
@@ -81,7 +81,7 @@
         </section>
     </main>
 
-    <script src="/script.js"></script>
+    <script src="/static/js/script.js"></script>
 </body>
 
 </html>
