@@ -96,3 +96,67 @@ if (carouselTrack && slides.length > 0) {
     goToSlide(activeSlideIndex);
   });
 }
+
+  const swagGallery = document.querySelector('.swag-gallery');
+  const swagPrev = document.querySelector('.swag-btn-prev');
+  const swagNext = document.querySelector('.swag-btn-next');
+  const swagItems = swagGallery ? Array.from(swagGallery.querySelectorAll('.swag-card')) : [];
+
+  let activeSwagIndex = 0;
+
+  function setActiveSwagIndex(index) {
+    if (!swagGallery || swagItems.length === 0) {
+      return;
+    }
+
+    activeSwagIndex = (index + swagItems.length) % swagItems.length;
+  }
+
+  function goToSwag(index, behavior = 'smooth') {
+    if (!swagGallery || swagItems.length === 0) {
+      return;
+    }
+
+    setActiveSwagIndex(index);
+    const targetItem = swagItems[activeSwagIndex];
+    swagGallery.scrollTo({
+      left: targetItem.offsetLeft,
+      behavior
+    });
+  }
+
+  if (swagGallery && swagItems.length > 0) {
+    goToSwag(0, 'auto');
+
+    swagPrev?.addEventListener('click', () => {
+      goToSwag(activeSwagIndex - 1);
+    });
+
+    swagNext?.addEventListener('click', () => {
+      goToSwag(activeSwagIndex + 1);
+    });
+
+    let swagScrollDebounceId;
+    swagGallery.addEventListener('scroll', () => {
+      window.clearTimeout(swagScrollDebounceId);
+      swagScrollDebounceId = window.setTimeout(() => {
+        const currentScroll = swagGallery.scrollLeft;
+        let nearestIndex = 0;
+        let nearestDistance = Number.POSITIVE_INFINITY;
+
+        swagItems.forEach((item, itemIndex) => {
+          const distance = Math.abs(item.offsetLeft - currentScroll);
+          if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nearestIndex = itemIndex;
+          }
+        });
+
+        setActiveSwagIndex(nearestIndex);
+      }, 100);
+    });
+
+    window.addEventListener('resize', () => {
+      goToSwag(activeSwagIndex, 'auto');
+    });
+  }

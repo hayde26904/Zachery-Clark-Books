@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const booksData = require('./data/books.json');
+const swagPreviewData = require('./data/swag-preview.json');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -61,7 +62,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res) => {
   const initialSlideIndex = getStartSlideIndex(req.query, books);
-  res.render('index', { books, initialSlideIndex });
+  res.render('index', { books, initialSlideIndex, swagPreview: swagPreviewData });
 });
 
 books.forEach((book) => {

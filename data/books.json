@@ -8,11 +8,13 @@
 		"reviews": [
 			{
 				"publicationName": "Goodreads",
-				"scoreOutOf5": 4.84
+				"scoreOutOf5": 4.84,
+				"url": "https://www.goodreads.com/book/show/223821264-mayhem-at-midnight"
 			},
 			{
 				"publicationName": "Amazon",
-				"scoreOutOf5": 4.9
+				"scoreOutOf5": 4.9,
+				"url": "https://www.amazon.com/Mayhem-at-Midnight-Zachery-Clark-ebook/dp/B0DTJN1D26"
 			}
 		],
 		"summary": [
@@ -22,10 +24,6 @@
 			"What begins as research becomes ritual. What was once curiosity turns into compulsion."
 		],
 		"links": [
-			{
-				"name": "Goodreads",
-				"url": "https://www.goodreads.com/book/show/223821264-mayhem-at-midnight"
-			}
 		]
 	},
 	"built_from_her_bones": {
@@ -37,11 +35,13 @@
 		"reviews": [
 			{
 				"publicationName": "Goodreads",
-				"scoreOutOf5": 4.59
+				"scoreOutOf5": 4.59,
+				"url": "https://www.goodreads.com/book/show/240250632-built-from-her-bones"
 			},
 			{
 				"publicationName": "Amazon",
-				"scoreOutOf5": 5
+				"scoreOutOf5": 5,
+				"url": "https://www.amazon.com/Built-Her-Bones-Mayhem-Midnight-ebook/dp/B0FMPKWQ3C"
 			}
 		],
 		"summary": [
@@ -49,10 +49,6 @@
 			"With his team, rookie Joe Ortega and sharp profiler Natalie Rivera, Damon chases leads through seedy bars, decaying apartments, and forgotten parks, unraveling a pattern that points to a mastermind orchestrating chaos from the shadows. But every step closer to Vexler pulls Damon deeper into his trauma, threatening to break him before he can stop the next kill. As the stakes escalate and allies fall, Damon must confront the ghosts of his past to end the game or become its final piece."
 		],
 		"links": [
-			{
-				"name": "Goodreads",
-				"url": "https://www.goodreads.com/book/show/240250632-built-from-her-bones"
-			}
 		]
 	},
 	"patchwork": {
@@ -64,7 +60,8 @@
 		"reviews": [
 			{
 				"publicationName": "Goodreads",
-				"scoreOutOf5": 5
+				"scoreOutOf5": 5,
+				"url": "https://www.goodreads.com/book/show/217051632-patchwork-chronicles-of-the-mind"
 			}
 		],
 		"summary": [
@@ -72,10 +69,6 @@
 			"You're welcome."
 		],
 		"links": [
-			{
-				"name": "Goodreads",
-				"url": "https://www.goodreads.com/book/show/217051632-patchwork-chronicles-of-the-mind"
-			}
 		]
 	},
 	"misadventures_of_zeke_and_liz": {
@@ -87,7 +80,8 @@
 		"reviews": [
 			{
 				"publicationName": "Goodreads",
-				"scoreOutOf5": 4.75
+				"scoreOutOf5": 4.75,
+				"url": "https://www.goodreads.com/book/show/244603214-misadventures-of-zeke-and-liz"
 			}
 		],
 		"summaryLead": "When conspiracies become code, reality is the game.",
@@ -97,10 +91,6 @@
 			"Zeke and Elizabeth's language shifts into the grammar of games, final bosses, PvP arenas, and loot drops until the agents realize the unthinkable: they are not tracking terrorists but players in an elaborate alternate reality."
 		],
 		"links": [
-			{
-				"name": "Goodreads",
-				"url": "https://www.goodreads.com/book/show/244603214-misadventures-of-zeke-and-liz"
-			}
 		]
 	}
 }

@@ -46,7 +46,13 @@
                                         <% const lastStarFillPercent = Math.floor(((rating % 1) * 100)); %>
                                         <div class="book-review">
                                             <div class="book-review-copy">
-                                                <p class="book-review-meta"><strong><%= review.publicationName %></strong> • <%= rating %>/5</p>
+                                                <p class="book-review-meta">
+                                                    <% if (review.url && review.url.trim()) { %>
+                                                        <a class="book-review-link" href="<%= review.url %>" target="_blank" rel="noopener noreferrer"><strong><%= review.publicationName %></strong></a> • <%= rating %>/5
+                                                    <% } else { %>
+                                                        <strong><%= review.publicationName %></strong> • <%= rating %>/5
+                                                    <% } %>
+                                                </p>
                                                 <p class="book-rating-stars" aria-label="Rated <%= rating.toFixed(1) %> out of 5 on <%= review.publicationName %>">
                                                     <% for (let starIndex = 0; starIndex < 5; starIndex++) { %>
                                                         <% const starFillPercentage = (starIndex < clampedRating) ? 100 : lastStarFillPercent %>
@@ -96,12 +102,36 @@
 
         <section class="swag-section wrap" aria-label="Swag">
             <h2 class="swag-title">Swag</h2>
-            <div class="swag-gallery">
-                <img src="/assets/img/merchplaceholder.jpg" class="swag-item" alt="Swag placeholder" />
-                <img src="/assets/img/merchplaceholder.jpg" class="swag-item" alt="Swag placeholder" />
-                <img src="/assets/img/merchplaceholder.jpg" class="swag-item" alt="Swag placeholder" />
+            <div class="swag-carousel" aria-label="Swag carousel">
+                <button class="swag-btn swag-btn-prev" type="button" aria-label="Previous swag item">&#10094;</button>
+                <div class="swag-gallery">
+                    <% const swagItems = Array.isArray(swagPreview) ? swagPreview : []; %>
+                    <% swagItems.forEach((item, itemIndex) => { %>
+                        <% const itemUrl = item.url && item.url.trim() ? item.url : 'https://zachery-clark-books.myshopify.com/collections/swag'; %>
+                        <a class="swag-card" href="<%= itemUrl %>" aria-label="View swag item <%= itemIndex + 1 %> in store" target="_blank" rel="noopener noreferrer">
+                            <img src="<%= item.image %>" class="swag-item" alt="Swag item <%= itemIndex + 1 %>" />
+                        </a>
+                    <% }); %>
+                </div>
+                <button class="swag-btn swag-btn-next" type="button" aria-label="Next swag item">&#10095;</button>
             </div>
-            <a class="read-more-btn swag-store-link" href="#">View Store</a>
+            <a class="read-more-btn swag-store-link" href="https://zachery-clark-books.myshopify.com/collections/swag">View Store</a>
+        </section>
+
+        <section class="newsletter-section wrap" aria-label="Newsletter signup">
+            <h2 class="newsletter-title">Newsletter</h2>
+            <p class="newsletter-copy">Get updates on new releases, events, and fresh swag drops!</p>
+            <form class="newsletter-form" method="post" action="https://zachery-clark-books.myshopify.com/contact#contact_form">
+                <input type="hidden" name="form_type" value="customer">
+                <input type="hidden" name="utf8" value="✓">
+                <label class="newsletter-label" for="contact[email]">Email address</label>
+                <input id="newsletter-email" name="contact[email]" class="newsletter-input" type="email" autocomplete="email" placeholder="you@example.com" required />
+                <label class="newsletter-consent" for="contact[accepts_marketing]">
+                    <input id="newsletter-consent" name="contact[accepts_marketing]" type="checkbox" required />
+                    I agree to receive marketing emails.
+                </label>
+                <button class="read-more-btn newsletter-btn" type="submit">Sign up</button>
+            </form>
         </section>
     </main>
 
