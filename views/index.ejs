@@ -69,9 +69,24 @@
                                 <% } %>
                                 <div class="book-links">
                                     <a class="read-more-btn" href="/books/<%= book.slug %>">Read more</a>
-                                    <% if (book.links && book.links.length > 0) { %>
-                                        <% book.links.forEach(link => { %>
-                                            <a class="read-more-btn" href="<%= link.url %>" target="_blank" rel="noopener noreferrer"><%= link.name %></a>
+                                    <% const externalLinks = Array.isArray(book.links)
+                                        ? book.links.flatMap((link) => {
+                                            if (!link || typeof link !== 'object') {
+                                                return [];
+                                            }
+
+                                            if (link.name && link.url) {
+                                                return [[link.name, link.url]];
+                                            }
+
+                                            return Object.entries(link);
+                                        })
+                                        : Object.entries(book.links || {}); %>
+                                    <% if (externalLinks.length > 0) { %>
+                                        <% externalLinks.forEach(([linkText, linkUrl]) => { %>
+                                            <% if (linkText && linkUrl) { %>
+                                                <a class="read-more-btn" href="<%= linkUrl %>" target="_blank" rel="noopener noreferrer"><%= linkText %></a>
+                                            <% } %>
                                         <% }); %>
                                     <% } %>
                                 </div>
@@ -85,7 +100,7 @@
             <button class="carousel-btn carousel-btn-next" type="button" aria-label="Next novel">&#10095;</button>
         </section>
 
-        <section class="author-section wrap" aria-label="About the author">
+        <section class="author-section wrap" aria-label="About the author" id="author">
             <div class="author-inner">
                 <div class="author-copy author-copy-top">
                     <h2 class="author-title">Author Zachery Clark</h2>
@@ -100,7 +115,7 @@
             </div>
         </section>
 
-        <section class="swag-section wrap" aria-label="Swag">
+        <section class="swag-section wrap" aria-label="Swag" id="swag">
             <h2 class="swag-title">Swag</h2>
             <div class="swag-carousel" aria-label="Swag carousel">
                 <button class="swag-btn swag-btn-prev" type="button" aria-label="Previous swag item">&#10094;</button>
@@ -118,20 +133,23 @@
             <a class="read-more-btn swag-store-link" href="https://zachery-clark-books.myshopify.com/collections/swag">View Store</a>
         </section>
 
-        <section class="newsletter-section wrap" aria-label="Newsletter signup">
+        <section class="newsletter-section wrap" aria-label="Newsletter signup" id="newsletter">
             <h2 class="newsletter-title">Newsletter</h2>
             <p class="newsletter-copy">Get updates on new releases, events, and fresh swag drops!</p>
-            <form class="newsletter-form" method="post" action="https://zachery-clark-books.myshopify.com/contact#contact_form">
+            <form class="newsletter-form" method="post" action="https://onrender.us22.list-manage.com/subscribe/post?u=36b67d7df8372227f1eedd497&id=6c3a0e9836&f_id=00bcc2e1f0">
                 <input type="hidden" name="form_type" value="customer">
                 <input type="hidden" name="utf8" value="✓">
-                <label class="newsletter-label" for="contact[email]">Email address</label>
-                <input id="newsletter-email" name="contact[email]" class="newsletter-input" type="email" autocomplete="email" placeholder="you@example.com" required />
-                <label class="newsletter-consent" for="contact[accepts_marketing]">
-                    <input id="newsletter-consent" name="contact[accepts_marketing]" type="checkbox" required />
+                <label class="newsletter-label" for="newsletter-email">Email address</label>
+                <input id="newsletter-email" name="EMAIL" class="newsletter-input" type="email" autocomplete="email" placeholder="you@example.com" required />
+                <label class="newsletter-consent" for="newsletter-consent">
+                    <input id="newsletter-consent" name="CONSENT" type="checkbox" required />
                     I agree to receive marketing emails.
                 </label>
                 <button class="read-more-btn newsletter-btn" type="submit">Sign up</button>
             </form>
+
+            
+
         </section>
     </main>
 

@@ -46,12 +46,27 @@
                             <div class="book-links" style="justify-content: flex-start; margin-top: 1rem;">
                                 <a class="read-more-btn" href="/?novel=<%= book.slug %>#novels-carousel">Back to all novels</a>
                                 <!-- <a class="read-more-btn" href="<%= book.readMoreUrl %>" target="_blank" rel="noopener noreferrer">View on Goodreads</a> -->
-                                <% if (book.links && book.links.length> 0) { %>
-                                    <% book.links.forEach(link=> { %>
-                                        <a class="read-more-btn" href="<%= link.url %>" target="_blank"
-                                            rel="noopener noreferrer">
-                                            <%= link.name %>
-                                        </a>
+                                <% const externalLinks = Array.isArray(book.links)
+                                    ? book.links.flatMap((link) => {
+                                        if (!link || typeof link !== 'object') {
+                                            return [];
+                                        }
+
+                                        if (link.name && link.url) {
+                                            return [[link.name, link.url]];
+                                        }
+
+                                        return Object.entries(link);
+                                    })
+                                    : Object.entries(book.links || {}); %>
+                                <% if (externalLinks.length > 0) { %>
+                                    <% externalLinks.forEach(([linkText, linkUrl]) => { %>
+                                        <% if (linkText && linkUrl) { %>
+                                            <a class="read-more-btn" href="<%= linkUrl %>" target="_blank"
+                                                rel="noopener noreferrer">
+                                                <%= linkText %>
+                                            </a>
+                                        <% } %>
                                         <% }); %>
                                             <% } %>
                             </div>
