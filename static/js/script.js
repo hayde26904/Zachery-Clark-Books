@@ -7,6 +7,59 @@ const slides = carouselTrack ? Array.from(carouselTrack.querySelectorAll('.book-
 const dotButtons = [];
 
 let activeSlideIndex = 0;
+let isProgrammaticCarouselScroll = false;
+let carouselProgrammaticReleaseId;
+let pendingCarouselIndex = null;
+let pendingCarouselOffsetLeft = 0;
+
+function getNearestCarouselSlideIndex() {
+  if (!carouselTrack || slides.length === 0) {
+    return 0;
+  }
+
+  const currentScroll = carouselTrack.scrollLeft;
+  let nearestIndex = 0;
+  let nearestDistance = Number.POSITIVE_INFINITY;
+
+  slides.forEach((slide, slideIndex) => {
+    const distance = Math.abs(slide.offsetLeft - currentScroll);
+    if (distance < nearestDistance) {
+      nearestDistance = distance;
+      nearestIndex = slideIndex;
+    }
+  });
+
+  return nearestIndex;
+}
+
+function syncActiveCarouselSlideToScrollPosition() {
+  setActiveSlide(getNearestCarouselSlideIndex());
+}
+
+function releaseProgrammaticCarouselScroll(usePendingIndex = false) {
+  isProgrammaticCarouselScroll = false;
+  window.clearTimeout(carouselProgrammaticReleaseId);
+
+  if (usePendingIndex && Number.isInteger(pendingCarouselIndex)) {
+    setActiveSlide(pendingCarouselIndex);
+  } else {
+    syncActiveCarouselSlideToScrollPosition();
+  }
+
+  pendingCarouselIndex = null;
+  pendingCarouselOffsetLeft = 0;
+}
+
+function markCarouselProgrammaticScroll(targetIndex, targetOffsetLeft) {
+  isProgrammaticCarouselScroll = true;
+  pendingCarouselIndex = targetIndex;
+  pendingCarouselOffsetLeft = targetOffsetLeft;
+  window.clearTimeout(carouselProgrammaticReleaseId);
+  // Fallback for browsers that do not fire scrollend reliably.
+  carouselProgrammaticReleaseId = window.setTimeout(() => {
+    releaseProgrammaticCarouselScroll(true);
+  }, 700);
+}
 
 function setActiveSlide(index) {
   activeSlideIndex = index;
@@ -27,10 +80,13 @@ function goToSlide(index, behavior = 'smooth') {
   }
 
   const wrappedIndex = (index + slides.length) % slides.length;
+  const isWrapJump = index !== wrappedIndex;
+  const scrollBehavior = isWrapJump ? 'auto' : behavior;
   const targetSlide = slides[wrappedIndex];
+  markCarouselProgrammaticScroll(wrappedIndex, targetSlide.offsetLeft);
   carouselTrack.scrollTo({
     left: targetSlide.offsetLeft,
-    behavior
+    behavior: scrollBehavior
   });
   setActiveSlide(wrappedIndex);
 }
@@ -74,26 +130,35 @@ if (carouselTrack && slides.length > 0) {
 
   let scrollDebounceId;
   carouselTrack.addEventListener('scroll', () => {
+    if (isProgrammaticCarouselScroll) {
+      const hasReachedTarget = Math.abs(carouselTrack.scrollLeft - pendingCarouselOffsetLeft) <= 2;
+      if (hasReachedTarget) {
+        releaseProgrammaticCarouselScroll(true);
+      }
+      return;
+    }
+
     window.clearTimeout(scrollDebounceId);
     scrollDebounceId = window.setTimeout(() => {
-      const currentScroll = carouselTrack.scrollLeft;
-      let nearestIndex = 0;
-      let nearestDistance = Number.POSITIVE_INFINITY;
-
-      slides.forEach((slide, slideIndex) => {
-        const distance = Math.abs(slide.offsetLeft - currentScroll);
-        if (distance < nearestDistance) {
-          nearestDistance = distance;
-          nearestIndex = slideIndex;
-        }
-      });
-
-      setActiveSlide(nearestIndex);
+      syncActiveCarouselSlideToScrollPosition();
     }, 120);
   });
 
+  carouselTrack.addEventListener('scrollend', () => {
+    if (isProgrammaticCarouselScroll) {
+      releaseProgrammaticCarouselScroll(true);
+      return;
+    }
+
+    syncActiveCarouselSlideToScrollPosition();
+  });
+
+  let resizeDebounceId;
   window.addEventListener('resize', () => {
-    goToSlide(activeSlideIndex);
+    window.clearTimeout(resizeDebounceId);
+    resizeDebounceId = window.setTimeout(() => {
+      goToSlide(activeSlideIndex, 'auto');
+    }, 140);
   });
 }
 

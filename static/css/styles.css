@@ -123,10 +123,12 @@ h3.mayhem-tagline {
 .carousel-track {
     display: flex;
     scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
 }
 
 .carousel-track::-webkit-scrollbar {
