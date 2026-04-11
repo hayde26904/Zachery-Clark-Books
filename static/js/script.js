@@ -88,7 +88,7 @@ function openBuyModal(options, bookTitle) {
     return;
   }
 
-  buyModalTitle.textContent = bookTitle ? `Choose format for ${bookTitle}` : 'Choose format';
+  buyModalTitle.textContent = 'Choose format';
   buyModalOptions.innerHTML = '';
 
   options.forEach(([formatLabel, linkUrl]) => {
