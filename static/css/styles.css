@@ -733,7 +733,7 @@ h3.mayhem-tagline {
 
 .author-photo-shell {
     grid-area: photo;
-    width: min(100%, 440px);
+    width: min(100%, 360px);
     justify-self: end;
     overflow: hidden;
 }
@@ -753,9 +753,12 @@ h3.mayhem-tagline {
 
 .author-photo {
     width: 100%;
-    height: min(40vw, 500px);
+    height: min(34vw, 420px);
     display: block;
     object-fit: cover;
+    object-position: 30% 34%;
+    transform: scale(1.7);
+    transform-origin: 30% 34%;
 }
 
 .author-title {
@@ -1179,9 +1182,12 @@ h3.mayhem-tagline {
     }
 
     .author-photo {
-        height: auto;
+        height: min(84vw, 385px);
         max-height: none;
-        object-fit: contain;
+        object-fit: cover;
+        object-position: 30% 34%;
+        transform: scale(1.7);
+        transform-origin: 30% 34%;
     }
 
     .swag-section {
