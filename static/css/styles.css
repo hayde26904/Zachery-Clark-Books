@@ -1069,6 +1069,10 @@ h3.mayhem-tagline {
         font-size: 1.2rem;
     }
 
+    .carousel-dots {
+        bottom: 2.4rem;
+    }
+
     .book-inner {
         grid-template-columns: 1fr;
         grid-template-areas:
