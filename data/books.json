@@ -23,12 +23,18 @@
 			"When an ambitious writer, consumed by his desire for inspiration, finds himself face-to-face with a notorious serial killer to craft the definitive true crime book, how deep must he delve into the darkness before losing his identity and transforming into the monster he initially sought to comprehend?",
 			"What begins as research becomes ritual. What was once curiosity turns into compulsion."
 		],
-		"links": [
+		"buyLinks": [
 			{
-				"Buy on Amazon": "https://www.amazon.com/Mayhem-at-Midnight-Zachery-Clark-ebook/dp/B0DTJN1D26"
+				"Signed Paperback": "https://zachery-clark-books.myshopify.com/products/mayhem-at-midnight-signed-copy"
 			},
 			{
-				"Buy Signed Copy": "https://zachery-clark-books.myshopify.com/products/mayhem-at-midnight-signed-copy"
+				"E-Book": "https://www.amazon.com/Mayhem-at-Midnight-Zachery-Clark-ebook/dp/B0DTJN1D26"
+			},
+			{
+				"Paperback": "https://www.amazon.com/Mayhem-at-Midnight-Zachery-Clark/dp/B0F13XRBBG/"
+			},
+			{
+				"Hardcover": "https://www.amazon.com/Mayhem-at-Midnight-Zachery-Clark/dp/B0FNRHFS5Q/"
 			}
 		]
 	},
@@ -54,12 +60,15 @@
 			"In the rain-soaked streets of Port Sentinel, Special Agent Damon Parker hunts a killer whose crimes echo the darkest moment of his past: the brutal murder of his mother. Each body left behind is a meticulously staged tableau, marked by a single lilac petal, a chilling signature that drags Damon back to the night his world shattered. As the body count rises, the killer, Anthony Vexler, a man of chilling precision and hidden scars, plays a deadly game, taunting Damon with cryptic messages and personal relics.",
 			"With his team, rookie Joe Ortega and sharp profiler Natalie Rivera, Damon chases leads through seedy bars, decaying apartments, and forgotten parks, unraveling a pattern that points to a mastermind orchestrating chaos from the shadows. But every step closer to Vexler pulls Damon deeper into his trauma, threatening to break him before he can stop the next kill. As the stakes escalate and allies fall, Damon must confront the ghosts of his past to end the game or become its final piece."
 		],
-		"links": [
+		"buyLinks": [
 			{
-				"Buy on Amazon": "https://www.amazon.com/Built-Her-Bones-Mayhem-Midnight-ebook/dp/B0FMPKWQ3C"
+				"Signed Paperback": "https://zachery-clark-books.myshopify.com/products/patchwork-chronicles-of-the-mind-signed-copy"
 			},
 			{
-				"Buy Signed Copy": "https://zachery-clark-books.myshopify.com/products/built-from-her-bones-a-mayhem-at-midnight-novel-signed-copy"
+				"E-Book": "https://www.amazon.com/Built-Her-Bones-Mayhem-Midnight-ebook/dp/B0FMPKWQ3C"
+			},
+			{
+				"Paperback": "https://www.amazon.com/Built-Her-Bones-Mayhem-Midnight/dp/B0FMQ8XVZ2/"
 			}
 		]
 	},
@@ -80,12 +89,15 @@
 			"I began writing these stories to keep my mind from turning into mush during those 2 a.m. existential crises. Now, I'm sharing them so you can take a glimpse into the chaos. They're perfect for those moments when you're stuck in the bathroom, forgot your phone, and suddenly realize you have nothing but your thoughts and questionable tile grout to stare at.",
 			"You're welcome."
 		],
-		"links": [
+		"buyLinks": [
 			{
-				"Buy on Amazon": "https://www.amazon.com/Patchwork-Chronicles-Mind-Zachery-Clark-ebook/dp/B0DBT7PPN8"
+				"Signed Paperback": "https://zachery-clark-books.myshopify.com/products/patchwork-chronicles-of-the-mind-signed-copy"
 			},
 			{
-				"Buy Signed Copy": "https://zachery-clark-books.myshopify.com/products/patchwork-chronicles-of-the-mind-signed-copy"
+				"E-Book": "https://www.amazon.com/Patchwork-Chronicles-Mind-Zachery-Clark-ebook/dp/B0DBT7PPN8"
+			},
+			{
+				"Paperback": "https://www.amazon.com/Patchwork-Chronicles-Mind-Zachery-Clark/dp/B0DC58C1PH/"
 			}
 		]
 	},
@@ -108,15 +120,18 @@
 			"Drawn further onto the web, Tom drinks to silence the voices invading his dreams, while Carla creates a shrine of notes and red string in her apartment. Treasury analysts, CIA operatives, and even the Bureau itself become entangled in the spiral, chasing phantom funds and recursive signals that seem meant to trap them. But the deeper they go, the line between fact and fiction blurs.",
 			"Zeke and Elizabeth's language shifts into the grammar of games, final bosses, PvP arenas, and loot drops until the agents realize the unthinkable: they are not tracking terrorists but players in an elaborate alternate reality."
 		],
-		"links": [
+		"buyLinks": [
 			{
-				"Buy on Amazon": "https://www.amazon.com/Misadventures-Zeke-Liz-ARG-Bureau-ebook/dp/B0G4JYL2FD"
+				"Signed Paperback": "https://zachery-clark-books.myshopify.com/products/misadventures-of-zeke-and-liz-the-arg-bureau-signed-copy"
 			},
 			{
-				"Buy Signed Copy": "https://zachery-clark-books.myshopify.com/products/misadventures-of-zeke-and-liz-the-arg-bureau-signed-copy"
+				"E-Book": "https://www.amazon.com/Misadventures-Zeke-Liz-ARG-Bureau-ebook/dp/B0G4JYL2FD"
 			},
 			{
-				"Buy Audiobook": "https://www.barnesandnoble.com/w/misadventures-of-zeke-and-liz-zachery-clark/1149061078"
+				"Paperback": "https://www.amazon.com/Misadventures-Zeke-Liz-ARG-Bureau/dp/B0G52BCC5Q/"
+			},
+			{
+				"Audiobook": "https://www.amazon.com/Misadventures-Zeke-Liz-ARG-Bureau/dp/B0GJTWQPMY/"
 			}
 		]
 	}

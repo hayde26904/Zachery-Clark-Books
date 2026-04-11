@@ -14,8 +14,24 @@
 </head>
 
 <body class="index-page">
+    <nav class="site-nav" aria-label="Section navigation">
+        <div class="site-nav-inner wrap">
+            <button class="site-nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-links" aria-label="Toggle section menu">
+                <span class="site-nav-toggle-line"></span>
+                <span class="site-nav-toggle-line"></span>
+                <span class="site-nav-toggle-line"></span>
+            </button>
+            <div class="site-nav-links" id="site-nav-links">
+                <a class="site-nav-link" href="#home">Home</a>
+                <a class="site-nav-link" href="#novels-carousel">Novels</a>
+                <a class="site-nav-link" href="#author">Author</a>
+                <a class="site-nav-link" href="#swag">Swag</a>
+                <a class="site-nav-link" href="#newsletter">Newsletter</a>
+            </div>
+        </div>
+    </nav>
     <main>
-        <header class="page-head wrap">
+        <header class="page-head wrap" id="home">
             <h2 class="mayhem-tagline">THE</h2>
             <h1 class="mayhem-tagline">MAYHEM<br>UNIVERSE</h1>
             <h3 class="mayhem-tagline">TRUTH HIDES IN THE ALLEYS</h3>
@@ -69,25 +85,23 @@
                                 <% } %>
                                 <div class="book-links">
                                     <a class="read-more-btn" href="/books/<%= book.slug %>">Read more</a>
-                                    <% const externalLinks = Array.isArray(book.links)
-                                        ? book.links.flatMap((link) => {
+                                    <% const buyOptions = Array.isArray(book.buyLinks)
+                                        ? book.buyLinks.flatMap((link) => {
                                             if (!link || typeof link !== 'object') {
                                                 return [];
                                             }
 
-                                            if (link.name && link.url) {
-                                                return [[link.name, link.url]];
-                                            }
-
                                             return Object.entries(link);
                                         })
-                                        : Object.entries(book.links || {}); %>
-                                    <% if (externalLinks.length > 0) { %>
-                                        <% externalLinks.forEach(([linkText, linkUrl]) => { %>
-                                            <% if (linkText && linkUrl) { %>
-                                                <a class="read-more-btn" href="<%= linkUrl %>" target="_blank" rel="noopener noreferrer"><%= linkText %></a>
-                                            <% } %>
-                                        <% }); %>
+                                        : Object.entries(book.buyLinks || {}); %>
+                                    <% if (buyOptions.length > 0) { %>
+                                        <button
+                                            class="read-more-btn buy-now-trigger"
+                                            type="button"
+                                            data-book-title="<%= book.title.split('\n').join(' ') %>"
+                                            data-buy-options="<%= encodeURIComponent(JSON.stringify(buyOptions)) %>">
+                                            Buy Now
+                                        </button>
                                     <% } %>
                                 </div>
                             </div>
@@ -107,7 +121,7 @@
                     <b class="author-tagline">Find your next obsession.</b>
                 </div>
                 <div class="author-copy author-copy-body">
-                    <b class="author-body">Author Bio Here</b>
+                    <b class="author-body">Zachery Clark is a compelling voice in contemporary thriller fiction who brings a unique perspective shaped by his military service and travels around the world. Growing up with dreams of adventure, Clark found his calling in storytelling after discovering that life's real mysteries were far more intriguing than any fictional tale he could imagine.</b>
                 </div>
                 <div class="author-photo-shell">
                     <img src="/assets/img/scaryzach.jpg" class="author-photo" alt="Portrait of Zachery Clark" />
@@ -152,6 +166,23 @@
 
         </section>
     </main>
+
+    <footer class="site-footer" aria-label="Contact links">
+        <div class="site-footer-inner wrap">
+            <a class="contact-icon-link" href="https://www.tiktok.com/@clarkbar842" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                <img src="/assets/icons/tiktok.png" alt="TikTok" class="contact-icon" />
+            </a>
+            <a class="contact-icon-link" href="https://www.instagram.com/wheresarchiecat" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <img src="/assets/icons/instagram.png" alt="Instagram" class="contact-icon" />
+            </a>
+            <a class="contact-icon-link" href="https://www.facebook.com/zachery.clark.935060/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <img src="/assets/icons/facebook.png" alt="Facebook" class="contact-icon" />
+            </a>
+            <a class="contact-icon-link" href="mailto:theclarkbar84@gmail.com" aria-label="Email">
+                <img src="/assets/icons/email.png" alt="Email" class="contact-icon" />
+            </a>
+        </div>
+    </footer>
 
     <script src="/static/js/script.js"></script>
 </body>
