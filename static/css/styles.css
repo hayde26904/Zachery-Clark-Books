@@ -735,7 +735,20 @@ h3.mayhem-tagline {
     grid-area: photo;
     width: min(100%, 360px);
     justify-self: end;
+    position: relative;
     overflow: hidden;
+}
+
+.author-photo-shell::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at center,
+            rgba(0, 0, 0, 0) 56%,
+            rgba(0, 0, 0, 0.22) 76%,
+            rgba(0, 0, 0, 0.48) 92%,
+            rgba(0, 0, 0, 0.68) 100%);
 }
 
 .author-copy {
