@@ -197,7 +197,9 @@ app.post('/subscribers-file', async (req, res) => {
   res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
   res.setHeader("Content-Disposition", 'attachment; filename="subscribers.xlsx"');
 
-  const subscribers = await getSubscribers();
+  const host = req.get('origin') || `${req.protocol}://${req.get('host')}`;
+
+  const subscribers = await getSubscribers(host);
   const spreadsheetBuffer = createSubscribersSpreadsheet(subscribers);
 
   res.send(spreadsheetBuffer);

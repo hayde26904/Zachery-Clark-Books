@@ -6,11 +6,11 @@ const { get } = require("http");
 
 xlsx.stream.set_readable(Readable);
 
-async function getSubscribers() {
+async function getSubscribers(host) {
     const subscribers = await dbGetAll("SELECT * FROM subscribers");
     subscribers.forEach(subscriber => {
         subscriber.email = subscriber.email.trim();
-        subscriber.unsubscribeURL = `${process.env.URL}/unsubscribe/${subscriber.token}`;
+        subscriber.unsubscribeURL = `${host}/unsubscribe/${subscriber.token}`;
         delete subscriber.token;
     });
     return subscribers;
