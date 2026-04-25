@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Authorization</title>
+</head>
+
+<body>
+    <form id="authForm">
+        <label for="password">Enter Newsletter Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        const authForm = document.getElementById('authForm');
+        authForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            fetch('/subscribers-file', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + password
+                }
+            })
+                .then(response => {
+                    if (!response.ok) return alert('Unauthorized: Incorrect password');
+                    return response.blob();
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'subscribers.xlsx';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    a.remove();
+                })
+                .catch(error => console.error(error));
+        });
+
+    </script>
+</body>
+
+</html>

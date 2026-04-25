@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS subscribers (
+    email TEXT NOT NULL UNIQUE,
+    token TEXT NOT NULL UNIQUE
+);

@@ -673,6 +673,7 @@ h3.mayhem-tagline {
 
 .site-footer {
     padding: 0.8rem 0 1.3rem;
+    margin-top: 20px;
 }
 
 .site-footer-inner {
@@ -691,8 +692,8 @@ h3.mayhem-tagline {
 }
 
 .contact-icon {
-    width: 64px;
-    height: 64px;
+    width: 100px;
+    height: 100px;
     display: block;
 }
 
@@ -1307,6 +1308,22 @@ h3.mayhem-tagline {
 
     .newsletter-consent {
         justify-content: center;
+    }
+
+    .site-footer {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .site-footer-inner {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: clamp(0.25rem, 1.8vw, 0.55rem);
+    }
+
+    .contact-icon {
+        width: clamp(40px, 12.5vw, 62px);
+        height: clamp(40px, 12.5vw, 62px);
     }
 
 }

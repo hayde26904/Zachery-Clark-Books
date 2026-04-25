@@ -138,6 +138,9 @@
                     <a class="contact-icon-link" href="https://www.facebook.com/zachery.clark.935060/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                         <img src="/assets/icons/facebook.png" alt="Facebook" class="contact-icon" />
                     </a>
+                    <a class="contact-icon-link" href="https://open.spotify.com/artist/1OgcyP9EmguAsMhh4WVGkL" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+                        <img src="/assets/icons/spotify.png" alt="Spotify" class="contact-icon" />
+                    </a>
                     <a class="contact-icon-link" href="mailto:theclarkbar84@gmail.com" aria-label="Email">
                         <img src="/assets/icons/email.png" alt="Email" class="contact-icon" />
                     </a>
@@ -166,24 +169,72 @@
         <section class="newsletter-section wrap" aria-label="Newsletter signup" id="newsletter">
             <h2 class="newsletter-title">Newsletter</h2>
             <p class="newsletter-copy">Get updates on new releases, events, and fresh swag drops!</p>
-            <form class="newsletter-form" method="post" action="https://onrender.us22.list-manage.com/subscribe/post?u=36b67d7df8372227f1eedd497&id=6c3a0e9836&f_id=00bcc2e1f0">
+            <form class="newsletter-form" method="post" action="/subscribe" id="newsletter-form">
                 <input type="hidden" name="form_type" value="customer">
                 <input type="hidden" name="utf8" value="✓">
+                <input type="text" id="honey-pot" name="no">
                 <label class="newsletter-label" for="newsletter-email">Email address</label>
-                <input id="newsletter-email" name="EMAIL" class="newsletter-input" type="email" autocomplete="email" placeholder="you@example.com" required />
+                <input id="newsletter-email" name="email" class="newsletter-input" type="email" autocomplete="email" placeholder="you@example.com" required />
                 <label class="newsletter-consent" for="newsletter-consent">
-                    <input id="newsletter-consent" name="CONSENT" type="checkbox" required />
+                    <input id="newsletter-consent" name="consent" type="checkbox" required />
                     I agree to receive marketing emails.
                 </label>
                 <button class="read-more-btn newsletter-btn" type="submit">Sign up</button>
             </form>
-
-            
+            <p class="newsletter-result" id="newsletter-result" aria-live="polite"></p>
 
         </section>
     </main>
 
     <script src="/static/js/script.js"></script>
+    <script>
+
+        document.getElementById('honey-pot').style.display = 'none';
+
+        const newsletterForm = document.getElementById('newsletter-form');
+        const newsLetterResult = document.getElementById('newsletter-result');
+
+        newsletterForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(newsletterForm);
+            const email = formData.get('email');
+            const consent = formData.get('consent');
+            console.log('Form data:', { email, consent });
+
+            if (!email || !consent) {
+                alert('Please provide a valid email address and agree to receive marketing emails.');
+                return;
+            }
+
+            if (formData.get('no')) {
+                alert('Bot submission detected. If you are not a bot, please try submitting the form again.');
+                return;
+            }
+
+            fetch('/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, consent })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        newsLetterResult.textContent = data.message || 'Subscribed successfully!';
+                        newsletterForm.reset();
+                    } else if (data.error) {
+                        newsLetterResult.textContent = data.error;
+                    } else {
+                        newsLetterResult.textContent = 'An unexpected response was received. Please try again later.';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error occurred while submitting the newsletter form:', error);
+                    newsLetterResult.textContent = 'An error occurred while submitting your subscription. Please try again later.';
+                });
+        });
+    </script>
 </body>
 
 </html>
