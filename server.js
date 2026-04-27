@@ -22,10 +22,15 @@ const newsletterPassword = process.env.NEWSLETTER_PASSWORD
 
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 120,
+  max: 500,
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: 'Too many requests. Please try again later.' }
+});
+
+const authLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  max: 20 // much tighter
 });
 
 if (!newsletterPassword) {
@@ -140,7 +145,7 @@ app.use('/static', express.static(path.join(__dirname, 'static')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post('/subscribe', async (req, res) => {
+app.post('/subscribe', authLimiter, async (req, res) => {
 
   if (req.body['honey-pot']) {
     console.warn('Bot submission detected. Form data:', req.body);
@@ -165,7 +170,7 @@ app.post('/subscribe', async (req, res) => {
   }
 });
 
-app.get('/unsubscribe/:token', async (req, res) => {
+app.get('/unsubscribe/:token', authLimiter, async (req, res) => {
   const token = req.params.token;
   try {
     const subscriber = await dbGet("SELECT * FROM subscribers WHERE token = ?", [token]);
@@ -186,7 +191,7 @@ app.get('/newsletter-admin', (req, res) => {
   res.render('newsletter-authorize');
 });
 
-app.post('/subscribers-file', async (req, res) => {
+app.post('/subscribers-file', authLimiter, async (req, res) => {
   const authHeader = req.headers.authorization || '';
 
   if (!newsletterPassword || authHeader !== `Bearer ${newsletterPassword}`) {
@@ -209,7 +214,7 @@ app.post('/subscribers-file', async (req, res) => {
 async function startServer() {
   try {
     await initializeDatabase();
-    app.listen(port, () => {
+    app.listen(port, '0.0.0.0', () => {
       console.log(`Server running at http://localhost:${port}`);
     });
   } catch (error) {
