@@ -28,13 +28,10 @@
 				"Signed Paperback": "https://square.link/u/kU5i0iq0"
 			},
 			{
+				"Paperback": "https://square.link/u/oi2l1K5S"
+			},
+			{
 				"E-Book": "https://www.amazon.com/Mayhem-at-Midnight-Zachery-Clark-ebook/dp/B0DTJN1D26"
-			},
-			{
-				"Paperback": "https://www.amazon.com/Mayhem-at-Midnight-Zachery-Clark/dp/B0F13XRBBG/"
-			},
-			{
-				"Hardcover": "https://www.amazon.com/Mayhem-at-Midnight-Zachery-Clark/dp/B0FNRHFS5Q/"
 			}
 		]
 	},
@@ -65,10 +62,10 @@
 				"Signed Paperback": "https://square.link/u/u6zFZsqX"
 			},
 			{
-				"E-Book": "https://www.amazon.com/Built-Her-Bones-Mayhem-Midnight-ebook/dp/B0FMPKWQ3C"
+				"Paperback": "https://square.link/u/kiNbXkLs"
 			},
 			{
-				"Paperback": "https://www.amazon.com/Built-Her-Bones-Mayhem-Midnight/dp/B0FMQ8XVZ2/"
+				"E-Book": "https://www.amazon.com/Built-Her-Bones-Mayhem-Midnight-ebook/dp/B0FMPKWQ3C"
 			}
 		]
 	},
@@ -94,10 +91,10 @@
 				"Signed Paperback": "https://square.link/u/OtMvySz4"
 			},
 			{
-				"E-Book": "https://www.amazon.com/Patchwork-Chronicles-Mind-Zachery-Clark-ebook/dp/B0DBT7PPN8"
+				"Paperback": "https://square.link/u/UjA5b6DI"
 			},
 			{
-				"Paperback": "https://www.amazon.com/Patchwork-Chronicles-Mind-Zachery-Clark/dp/B0DC58C1PH/"
+				"E-Book": "https://www.amazon.com/Patchwork-Chronicles-Mind-Zachery-Clark-ebook/dp/B0DBT7PPN8"
 			}
 		]
 	},
@@ -125,14 +122,20 @@
 				"Signed Paperback": "https://square.link/u/3wSZQZWM"
 			},
 			{
-				"E-Book": "https://www.amazon.com/Misadventures-Zeke-Liz-ARG-Bureau-ebook/dp/B0G4JYL2FD"
+				"Paperback": "https://square.link/u/Nojb4IAT"
 			},
 			{
-				"Paperback": "https://www.amazon.com/Misadventures-Zeke-Liz-ARG-Bureau/dp/B0G52BCC5Q/"
+				"E-Book": "https://www.amazon.com/Misadventures-Zeke-Liz-ARG-Bureau-ebook/dp/B0G4JYL2FD"
 			},
 			{
 				"Audiobook": "https://www.amazon.com/Misadventures-Zeke-Liz-ARG-Bureau/dp/B0GJTWQPMY/"
 			}
 		]
+	},
+
+	"the_advocates_hunger": {
+		"title": "The Advocate's Hunger",
+		"cover": "assets/covers/theadvocateshunger.jpg",
+		"shortDescription": "<center>COMING SOON</center>"
 	}
 }

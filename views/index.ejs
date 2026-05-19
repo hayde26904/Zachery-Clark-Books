@@ -45,13 +45,17 @@
                 <section class="book-section fade-section">
                     <div class="book-inner wrap">
                         <div class="cover-shell">
-                            <img src="/<%= book.cover %>" class="book-cover" alt="<%= book.coverAlt %>" />
+                            <% if (book.cover) { %>
+                                <img src="/<%= book.cover %>" class="book-cover" alt="<%= book.coverAlt %>" />
+                            <% } else { %>
+                                <div class="placeholder-book-cover"><h1 class="placeholder-book-cover-title"><%- book.title.replace('\n', '<br>') %></h1></div>
+                            <% } %>
                         </div>
                         <div class="book-copy">
-                            <h2 class="book-title"><%- book.title.replace('\n', '<br>') %></h2>
+                            <h2 class="book-title"><%= book.title.replace('\n', '<br>') %></h2>
                             <h3 class="book-subtitle"><%= book.subtitle || '\u00A0' %></h3>
                             <div class="book-short-description">
-                                <b><%= book.shortDescription %></b>
+                                <b><%- book.shortDescription %></b>
                             </div>
                             <div class="book-footer">
                                 <% if (book.reviews && book.reviews.length > 0) { %>
@@ -84,7 +88,9 @@
                                     </div>
                                 <% } %>
                                 <div class="book-links">
-                                    <a class="read-more-btn" href="/books/<%= book.slug %>">Read more</a>
+                                    <% if (book.summary) { %>
+                                        <a class="read-more-btn" href="/books/<%= book.slug %>">Read more</a>
+                                    <% } %>
                                     <% const buyOptions = Array.isArray(book.buyLinks)
                                         ? book.buyLinks.flatMap((link) => {
                                             if (!link || typeof link !== 'object') {

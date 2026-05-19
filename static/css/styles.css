@@ -430,6 +430,16 @@ h3.mayhem-tagline {
     mask-image: none;
 }
 
+.placeholder-book-cover {
+    border: 1px solid #222;
+    width: 1000px;
+    height: 1500px;
+}
+
+.placeholder-book-cover-title {
+    text-transform: uppercase;
+}
+
 .book-title {
     margin: 0px;
     margin-left: auto;
