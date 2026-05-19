@@ -52,8 +52,8 @@
                             <% } %>
                         </div>
                         <div class="book-copy">
-                            <h2 class="book-title"><%= book.title.replace('\n', '<br>') %></h2>
-                            <h3 class="book-subtitle"><%= book.subtitle || '\u00A0' %></h3>
+                            <h2 class="book-title"><%- book.title.replace('\n', '<br>') %></h2>
+                            <h3 class="book-subtitle"><%- book.subtitle || '\u00A0' %></h3>
                             <div class="book-short-description">
                                 <b><%- book.shortDescription %></b>
                             </div>
