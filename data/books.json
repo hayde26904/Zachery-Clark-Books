@@ -136,6 +136,23 @@
 	"the_advocates_hunger": {
 		"title": "The Advocate's Hunger",
 		"cover": "assets/covers/theadvocateshunger.jpg",
-		"shortDescription": "<center>COMING SOON</center>"
+		"shortDescription": "Ellie Keene is a rising star in the high-stakes world of court appeals. Driven and uncompromising, she will do whatever it takes to save her clients. When she takes on the case of Grant Vale, a convicted murderer with a chilling presence and a complex past, Ellie believes it's just another battle in the courtroom.",
+		"summary": [
+			"Ellie Keene is a rising star in the high-stakes world of court appeals. Driven and uncompromising, she will do whatever it takes to save her clients. When she takes on the case of Grant Vale, a convicted murderer with a chilling presence and a complex past, Ellie believes it's just another battle in the courtroom.",
+			"But as Ellie immerses herself in Vale's case, the boundaries between professional duty and personal hunger begin to dissolve. Late-night case preparations turn electric. Courtroom strategy sessions become tense. What starts as a fight for justice slowly transforms into a consuming obsession that threatens everything Ellie has built: her career, her ethics, and her sanity.",
+			"Set against the backdrop of gritty courtrooms, tense prison visits, and the justice system's moral ambiguity, Ellie must confront the darkest parts of herself. How far is she willing to go to win? And when the line between advocate and something far more dangerous blurs, will she be able to pull herself back?",
+			"The Advocate's Hunger is the third installment in Zachery Clark's Mayhem at Midnight series."
+		],
+		"buyLinks": [
+			{
+				"Signed Paperback": "https://square.link/u/UUrKJLT9"
+			},
+			{
+				"Paperback": "https://square.link/u/q5BfLS1h"
+			},
+			{
+				"E-Book": "https://amzn.to/4v3Dh8H"
+			}
+		]
 	}
 }

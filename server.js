@@ -53,10 +53,17 @@ function initializeDatabase() {
           return;
         }
 
-        db.exec(sqlScript, (execError) => {
+        db.exec(sqlScript, async (execError) => {
           if (execError) {
             db.close(() => reject(execError));
             return;
+          }
+
+          // set up site stats
+          const stats = await dbGetAll("SELECT * FROM site_stats");
+
+          if (stats.length === 0) {
+            db.run("INSERT INTO site_stats (visits) VALUES (0)");
           }
 
           db.close((closeError) => {
@@ -82,9 +89,7 @@ function slugify(text) {
 
 function buildBooksWithSlugs(rawBooks) {
   const slugCounts = new Map();
-  const booksArray = Array.isArray(rawBooks)
-    ? rawBooks
-    : Object.values(rawBooks || {});
+  const booksArray = Object.entries(rawBooks).map(([id, book]) => ({id, ...book}));
 
   return booksArray.map((book) => {
     const baseSlug = slugify(book.title) || 'book';
@@ -124,13 +129,20 @@ function getStartSlideIndex(query, allBooks) {
   return 0;
 }
 
+async function incrementVisitCounter() {
+  await dbRun("UPDATE site_stats SET visits = visits + 1");
+  const visits = await dbGet("SELECT visits FROM site_stats LIMIT 1");
+  return visits.visits;
+}
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(globalLimiter);
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+  const visits = await incrementVisitCounter();
   const initialSlideIndex = getStartSlideIndex(req.query, books);
-  res.render('index', { books, initialSlideIndex, swagPreview: swagPreviewData });
+  res.render('index', { books, initialSlideIndex, swagPreview: swagPreviewData, visits});
 });
 
 books.forEach((book) => {

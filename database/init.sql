@@ -2,3 +2,7 @@ CREATE TABLE IF NOT EXISTS subscribers (
     email TEXT NOT NULL UNIQUE,
     token TEXT NOT NULL UNIQUE
 );
+
+CREATE TABLE IF NOT EXISTS site_stats (
+    visits INT NOT NULL
+);

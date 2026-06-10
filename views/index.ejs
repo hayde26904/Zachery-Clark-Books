@@ -25,7 +25,7 @@
                 <a class="site-nav-link" href="#home">Home</a>
                 <a class="site-nav-link" href="#novels-carousel">Novels</a>
                 <a class="site-nav-link" href="#author">Author</a>
-                <a class="site-nav-link" href="#swag">Swag</a>
+                <!--<a class="site-nav-link" href="#swag">Swag</a>-->
                 <a class="site-nav-link" href="#newsletter">Newsletter</a>
             </div>
         </div>
@@ -41,7 +41,10 @@
         <section class="novels-carousel wrap" aria-label="Novel carousel" id="novels-carousel" data-start-index="<%= initialSlideIndex %>">
             <button class="carousel-btn carousel-btn-prev" type="button" aria-label="Previous novel">&#10094;</button>
             <div class="carousel-track">
-                <% books.forEach((book) => { %>
+                <% for (let book of books) { %>
+
+                <% if (book.id === "misadventures_of_zeke_and_liz") continue; // skip misadventures in the carousel because it now has its own section %>
+
                 <section class="book-section fade-section">
                     <div class="book-inner wrap">
                         <div class="cover-shell">
@@ -114,10 +117,87 @@
                         </div>
                     </div>
                 </section>
-                <% }); %>
+                <% } %>
             </div>
-            <div class="carousel-dots" aria-label="Novel slide indicators"></div>
+            <!--<div class="carousel-dots" aria-label="Novel slide indicators"></div>-->
             <button class="carousel-btn carousel-btn-next" type="button" aria-label="Next novel">&#10095;</button>
+        </section>
+
+        <!-- Separate section for Misadventures of Zeke and Liz -->
+        <section class="novels-carousel wrap" aria-label="Novel carousel" id="novels-carousel">
+            <div class="carousel-track">
+                <% let book = books.find(book => book.id == "misadventures_of_zeke_and_liz"); %>
+                    <div class="book-inner wrap">
+                        <div class="cover-shell">
+                            <% if (book.cover) { %>
+                                <img src="/<%= book.cover %>" class="book-cover" alt="<%= book.coverAlt %>" />
+                            <% } else { %>
+                                <div class="placeholder-book-cover"><h1 class="placeholder-book-cover-title"><%- book.title.replace('\n', '<br>') %></h1></div>
+                            <% } %>
+                        </div>
+                        <div class="book-copy">
+                            <h2 class="book-title"><%- book.title.replace('\n', '<br>') %></h2>
+                            <h3 class="book-subtitle"><%- book.subtitle || '\u00A0' %></h3>
+                            <div class="book-short-description">
+                                <b><%- book.shortDescription %></b>
+                            </div>
+                            <div class="book-footer">
+                                <% if (book.reviews && book.reviews.length > 0) { %>
+                                    <div class="book-reviews">
+                                    <% book.reviews.forEach((review) => { %>
+                                        <% const rating = Number(review.scoreOutOf5.toFixed(1)) || 0; %>
+                                        <% const clampedRating = Math.floor(rating); %>
+                                        <% const lastStarFillPercent = Math.floor(((rating % 1) * 100)); %>
+                                        <div class="book-review">
+                                            <div class="book-review-copy">
+                                                <p class="book-review-meta">
+                                                    <% if (review.url && review.url.trim()) { %>
+                                                        <a class="book-review-link" href="<%= review.url %>" target="_blank" rel="noopener noreferrer"><strong><%= review.publicationName %></strong></a> • <%= rating %>/5
+                                                    <% } else { %>
+                                                        <strong><%= review.publicationName %></strong> • <%= rating %>/5
+                                                    <% } %>
+                                                </p>
+                                                <p class="book-rating-stars" aria-label="Rated <%= rating.toFixed(1) %> out of 5 on <%= review.publicationName %>">
+                                                    <% for (let starIndex = 0; starIndex < 5; starIndex++) { %>
+                                                        <% const starFillPercentage = (starIndex < clampedRating) ? 100 : lastStarFillPercent %>
+                                                        <span class="book-rating-star" aria-hidden="true">
+                                                            <span class="book-rating-star-empty">★</span>
+                                                            <span class="book-rating-star-filled" style="--star-fill-percentage: <%= starFillPercentage %>%">★</span>
+                                                        </span>
+                                                    <% } %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    <% }); %>
+                                    </div>
+                                <% } %>
+                                <div class="book-links">
+                                    <% if (book.summary) { %>
+                                        <a class="read-more-btn" href="/books/<%= book.slug %>">Read more</a>
+                                    <% } %>
+                                    <% const buyOptions = Array.isArray(book.buyLinks)
+                                        ? book.buyLinks.flatMap((link) => {
+                                            if (!link || typeof link !== 'object') {
+                                                return [];
+                                            }
+
+                                            return Object.entries(link);
+                                        })
+                                        : Object.entries(book.buyLinks || {}); %>
+                                    <% if (buyOptions.length > 0) { %>
+                                        <button
+                                            class="read-more-btn buy-now-trigger"
+                                            type="button"
+                                            data-book-title="<%= book.title.split('\n').join(' ') %>"
+                                            data-buy-options="<%= encodeURIComponent(JSON.stringify(buyOptions)) %>">
+                                            Buy Now
+                                        </button>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
         </section>
 
         <section class="author-section wrap" aria-label="About the author" id="author">
@@ -154,7 +234,7 @@
             </footer>
         </section>
 
-        <section class="swag-section wrap" aria-label="Swag" id="swag">
+        <!--<section class="swag-section wrap" aria-label="Swag" id="swag">
             <h2 class="swag-title">Swag</h2>
             <div class="swag-carousel" aria-label="Swag carousel">
                 <button class="swag-btn swag-btn-prev" type="button" aria-label="Previous swag item">&#10094;</button>
@@ -170,7 +250,7 @@
                 <button class="swag-btn swag-btn-next" type="button" aria-label="Next swag item">&#10095;</button>
             </div>
             <a class="read-more-btn swag-store-link" href="https://zachery-clark-books.myshopify.com/collections/swag">View Store</a>
-        </section>
+        </section>-->
 
         <section class="newsletter-section wrap" aria-label="Newsletter signup" id="newsletter">
             <h2 class="newsletter-title">Newsletter</h2>
@@ -190,6 +270,8 @@
             <p class="newsletter-result" id="newsletter-result" aria-live="polite"></p>
 
         </section>
+
+        <center><h1><%= visits %></h1></center><br>
     </main>
 
     <script src="/static/js/script.js"></script>
