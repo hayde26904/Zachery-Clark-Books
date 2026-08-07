@@ -1,10 +1,12 @@
 {
 	"mayhem_at_midnight": {
 		"title": "Mayhem at Midnight",
+		"isbn": 9798307730959,
 		"subtitle": "",
 		"cover": "assets/covers/mayhematmidnight.jpg",
 		"coverAlt": "Mayhem at Midnight book cover",
 		"shortDescription": "A chilling psychological thriller that explores the cost of obsession, the fragility of identity, and the terrifying moment when a storyteller becomes the story.",
+		"goodreadsLink": "https://www.goodreads.com/book/show/223821264-mayhem-at-midnight",
 		"reviews": [
 			{
 				"publicationName": "Goodreads",
@@ -41,6 +43,7 @@
 		"cover": "assets/covers/builtfromherbones.jpg",
 		"coverAlt": "Built From Her Bones book cover",
 		"shortDescription": "A gritty, heart-pounding noir thriller, Built from Her Bones weaves a tale of vengeance, redemption, and the cost of chasing monsters in a city that never sleeps.",
+		"goodreadsLink": "https://www.goodreads.com/book/show/240250632-built-from-her-bones",
 		"reviews": [
 			{
 				"publicationName": "Goodreads",
@@ -75,6 +78,7 @@
 		"cover": "assets/covers/patchworkchronicalsofthemind.jpg",
 		"coverAlt": "Patchwork: Chronicles of the Mind book cover",
 		"shortDescription": "Bite-sized stories inspired by random writing prompts and long nights filled with caffeine-fueled boredom. Think of them as mental popcorn: quick, crunchy, and oddly satisfying.",
+		"goodreadsLink": "https://www.goodreads.com/book/show/217051632-patchwork-chronicles-of-the-mind",
 		"reviews": [
 			{
 				"publicationName": "Goodreads",
@@ -104,6 +108,7 @@
 		"cover": "assets/covers/misadventuresofzekeandliz.jpg",
 		"coverAlt": "Misadventures of Zeke and Liz book cover",
 		"shortDescription": "Darkly satirical, psychologically gripping, and eerily plausible, a story about how institutions crumble when they mistake fiction for fact, and how obsession can turn surveillance into self-destruction.",
+		"goodreadsLink": "https://www.goodreads.com/book/show/244603214-misadventures-of-zeke-and-liz",
 		"reviews": [
 			{
 				"publicationName": "Goodreads",

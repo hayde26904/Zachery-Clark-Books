@@ -13,6 +13,50 @@
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="/static/css/styles.css" />
+    <style>
+        #goodreads-widget {
+            font-family: georgia, serif;
+            padding-top: 18px;
+            width: 575px;
+        }
+
+        #goodreads-widget h1 {
+            font-weight: normal;
+            font-size: 16px;
+            border-bottom: 1px solid #BBB596;
+            margin-bottom: 0;
+        }
+
+        #goodreads-widget a {
+            text-decoration: none;
+            color: #dbdbdb;
+        }
+
+        #the_iframe {
+            background-color: #ffffff;
+        }
+
+        #goodreads-widget a:hover {
+            text-decoration: underline;
+        }
+
+        #goodreads-widget a:active {
+            color: #fff;
+        }
+
+        #gr_footer {
+            width: 100%;
+            /* border-top: 1px solid #f1f1f1; */
+            text-align: right;
+        }
+
+        #goodreads-widget .gr_branding {
+            color: #dbdbdb;
+            font-size: 11px;
+            text-decoration: none;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+    </style>
 </head>
 
 <body class="book-page">
@@ -43,26 +87,38 @@
                                                 <% } %>
                                                     <% }); %>
                             </div>
+                            <% if (book.isbn && book.goodreadsLink) { %>
+                                <center>
+                                    <div id="goodreads-widget">
+                                        <iframe sandbox="allow-scripts allow-popups" id="the_iframe"
+                                            src="https://www.goodreads.com/api/reviews_widget_iframe?did=DEVELOPER_ID&format=html&header_text=fff&isbn=<%= book.isbn %>&links=dbdbdb&min_rating=&num_reviews=1&page=2&review_back=000&stars=000000&stylesheet=&text=dbdbdb"
+                                            width="575" height="180" frameborder="0" scrolling="no"></iframe>
+                                        <div id="gr_footer">
+                                            <a class="gr_branding" target="_blank" rel="nofollow noopener noreferrer"
+                                                href="https://www.goodreads.com/book/show/229020700-mayhem-at-midnight?utm_medium=api&utm_source=reviews_widget">Reviews
+                                                from Goodreads.com</a>
+                                        </div>
+                                    </div>
+                                </center>
+                            <% } %>
                             <div class="book-links" style="margin-top: 1rem;">
-                                <a class="read-more-btn" href="/?novel=<%= book.slug %>#novels-carousel">Back to all novels</a>
-                                <% const buyOptions = Array.isArray(book.buyLinks)
-                                    ? book.buyLinks.flatMap((link) => {
-                                        if (!link || typeof link !== 'object') {
-                                            return [];
-                                        }
+                                <a class="read-more-btn" href="/?novel=<%= book.slug %>#novels-carousel">Back to all
+                                    novels</a>
+                                <% const buyOptions=Array.isArray(book.buyLinks) ? book.buyLinks.flatMap((link)=> {
+                                    if (!link || typeof link !== 'object') {
+                                    return [];
+                                    }
 
-                                        return Object.entries(link);
+                                    return Object.entries(link);
                                     })
                                     : Object.entries(book.buyLinks || {}); %>
-                                <% if (buyOptions.length > 0) { %>
-                                    <button
-                                        class="read-more-btn buy-now-trigger"
-                                        type="button"
-                                        data-book-title="<%= book.title.split('\n').join(' ') %>"
-                                        data-buy-options="<%= encodeURIComponent(JSON.stringify(buyOptions)) %>">
-                                        Buy Now
-                                    </button>
-                                <% } %>
+                                    <% if (buyOptions.length> 0) { %>
+                                        <button class="read-more-btn buy-now-trigger" type="button"
+                                            data-book-title="<%= book.title.split('\n').join(' ') %>"
+                                            data-buy-options="<%= encodeURIComponent(JSON.stringify(buyOptions)) %>">
+                                            Buy Now
+                                        </button>
+                                        <% } %>
                             </div>
                 </div>
             </div>
