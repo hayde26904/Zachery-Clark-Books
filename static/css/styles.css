@@ -653,15 +653,32 @@ h3.mayhem-tagline {
     gap: 0.8rem;
 }
 
-.buy-modal-close {
-    justify-self: end;
+.buy-modal-chrome {
+    position: relative;
+    min-height: 32px;
+}
+
+.buy-modal-icon-button {
+    position: absolute;
+    top: 0;
     width: 32px;
     height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border: 1px solid rgba(240, 236, 226, 0.35);
     background: rgba(240, 236, 226, 0.06);
     color: var(--ink);
     line-height: 1;
     cursor: pointer;
+}
+
+.buy-modal-close {
+    right: 0;
+}
+
+.buy-modal-back {
+    left: 0;
 }
 
 .buy-modal-title {

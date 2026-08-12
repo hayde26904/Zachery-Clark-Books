@@ -31,11 +31,18 @@
 			},
 			{
 				"Paperback": "https://square.link/u/oi2l1K5S"
-			},
-			{
-				"E-Book": "https://www.amazon.com/Mayhem-at-Midnight-Zachery-Clark-ebook/dp/B0DTJN1D26"
 			}
-		]
+		],
+		"eReaders": {
+			"Amazon": "https://www.amazon.com/Mayhem-at-Midnight-Zachery-Clark-ebook/dp/B0DTJN1D26/",
+			"Apple Books": "https://books.apple.com/us/book/mayhem-at-midnight/id6792381349",
+			"Barnes & Noble": "https://www.barnesandnoble.com/w/mayhem-at-midnight-zachery-clark/1147173347?ean=2940196589997",
+			"Bookshop.org": "https://bookshop.org/p/books/mayhem-at-midnight-zachery-clark/45c69dae4faafbad?ean=9798235907362",
+			"Everand": "https://www.everand.com/book/1063621668/Mayhem-At-Midnight-Mayhem-at-Midnight-1",
+			"Fable": "https://fable.co/book/x-9798235907362",
+			"Rakuten Kobo": "https://www.kobo.com/us/en/ebook/mayhem-at-midnight",
+			"Smashwords": "https://www.smashwords.com/books/view/2069048"
+		}
 	},
 	"built_from_her_bones": {
 		"title": "Built From Her Bones",
@@ -66,11 +73,11 @@
 			},
 			{
 				"Paperback": "https://square.link/u/kiNbXkLs"
-			},
-			{
-				"E-Book": "https://www.amazon.com/Built-Her-Bones-Mayhem-Midnight-ebook/dp/B0FMPKWQ3C"
 			}
-		]
+		],
+		"eReaders": {
+			"Amazon": "https://www.amazon.com/Built-Her-Bones-Mayhem-Midnight-ebook/dp/B0FMPKWQ3C"
+		}
 	},
 	"patchwork": {
 		"title": "Patchwork",
@@ -96,11 +103,11 @@
 			},
 			{
 				"Paperback": "https://square.link/u/UjA5b6DI"
-			},
-			{
-				"E-Book": "https://www.amazon.com/Patchwork-Chronicles-Mind-Zachery-Clark-ebook/dp/B0DBT7PPN8"
 			}
-		]
+		],
+		"eReaders": {
+			"Amazon": "https://www.amazon.com/Patchwork-Chronicles-Mind-Zachery-Clark-ebook/dp/B0DBT7PPN8"
+		}
 	},
 	"misadventures_of_zeke_and_liz": {
 		"title": "Misadventures of\nZeke and Liz",
@@ -130,18 +137,18 @@
 				"Paperback": "https://square.link/u/Nojb4IAT"
 			},
 			{
-				"E-Book": "https://www.amazon.com/Misadventures-Zeke-Liz-ARG-Bureau-ebook/dp/B0G4JYL2FD"
-			},
-			{
 				"Audiobook": "https://www.amazon.com/Misadventures-Zeke-Liz-ARG-Bureau/dp/B0GJTWQPMY/"
 			}
-		]
+		],
+		"eReaders": {
+			"Amazon": "https://www.amazon.com/Misadventures-Zeke-Liz-ARG-Bureau-ebook/dp/B0G4JYL2FD"
+		}
 	},
 
 	"the_advocates_hunger": {
 		"title": "The Advocate's Hunger",
 		"cover": "assets/covers/theadvocateshunger.jpg",
-		"shortDescription": "Ellie Keene is a rising star in the high-stakes world of court appeals. Driven and uncompromising, she will do whatever it takes to save her clients. When she takes on the case of Grant Vale, a convicted murderer with a chilling presence and a complex past, Ellie believes it's just another battle in the courtroom.",
+		"shortDescription": "Set against the backdrop of gritty courtrooms, tense prison visits, and the justice system's moral ambiguity, Ellie must confront the darkest parts of herself. How far is she willing to go to win? And when the line between advocate and something far more dangerous blurs, will she be able to pull herself back?",
 		"summary": [
 			"Ellie Keene is a rising star in the high-stakes world of court appeals. Driven and uncompromising, she will do whatever it takes to save her clients. When she takes on the case of Grant Vale, a convicted murderer with a chilling presence and a complex past, Ellie believes it's just another battle in the courtroom.",
 			"But as Ellie immerses herself in Vale's case, the boundaries between professional duty and personal hunger begin to dissolve. Late-night case preparations turn electric. Courtroom strategy sessions become tense. What starts as a fight for justice slowly transforms into a consuming obsession that threatens everything Ellie has built: her career, her ethics, and her sanity.",
@@ -154,10 +161,22 @@
 			},
 			{
 				"Paperback": "https://square.link/u/q5BfLS1h"
-			},
-			{
-				"E-Book": "https://amzn.to/4v3Dh8H"
 			}
+		],
+		"eReaders": {
+			"Amazon": "https://amzn.to/4v3Dh8H"
+		}
+	},
+
+	"the_denver_protocol": {
+		"title": "Misadventures of \nZeke & Liz",
+		"subtitle": "The Denver Protocol",
+		"cover": "assets/covers/thedenverprotocol.jpg",
+		"shortDescription": "Book Two of The Misadventures of Zeke and Liz: The Denver Protocol is a sharp, absurd, and surprisingly heartfelt conspiracy comedy about belief, bureaucracy, and the dangerous idea that someone has to stand in the middle of the circle.",
+		"summary": [
+			"When conspiracy podcast hosts Zeke and Liz land in Denver to investigate the airport’s infamous secrets, they expect the usual mix of tinfoil theories, bad coffee, and a blue horse statue with glowing red eyes. What they don’t expect is a tiny cowboy hat in a Ziplock bag, a cult that treats headwear as sacred geometry, and an underground machine for the size of a city block that may or may not be holding the planet’s rotation together by an eighth of an inch.",
+			"Dragged into a turf war between the Astral Cartographers Guild and the Navigators who built the Astro Engine, Zeke finds himself declared the long-prophesied Brim-Bearer, mostly because his podcast has good download numbers. Liz, armed with spreadsheets, dry sarcasm, and a lint roller, tries to keep them both alive while the tunnels fill with black-hat pilots, government liaisons, and one very anxious man who has been living in the ventilation shafts with a stopwatch and Funyuns.",
+			"As the Engine’s pulse climbs and the formation of brown hats begins to chant, Zeke and Liz discover that the real conspiracy isn’t just under the airport—it’s wearing a hat, quoting celestial coordinates, and insisting that the fate of the world depends on a podcast host who can’t stop narrating."
 		]
 	}
 }

@@ -102,7 +102,7 @@
                                 </center>
                             <% } %>
                             <div class="book-links" style="margin-top: 1rem;">
-                                <a class="read-more-btn" href="/?novel=<%= book.slug %>#novels-carousel">Back to all
+                                <a class="read-more-btn" href="/?novel=<%= book.slug %>">Back to all
                                     novels</a>
                                 <% const buyOptions=Array.isArray(book.buyLinks) ? book.buyLinks.flatMap((link)=> {
                                     if (!link || typeof link !== 'object') {
@@ -115,7 +115,7 @@
                                     <% if (buyOptions.length> 0) { %>
                                         <button class="read-more-btn buy-now-trigger" type="button"
                                             data-book-title="<%= book.title.split('\n').join(' ') %>"
-                                            data-buy-options="<%= encodeURIComponent(JSON.stringify(buyOptions)) %>">
+                                            data-buy-data="<%= encodeURIComponent(JSON.stringify({ buyOptions, eReaders: book.eReaders || null })) %>">
                                             Buy Now
                                         </button>
                                         <% } %>
@@ -124,6 +124,16 @@
             </div>
         </section>
     </main>
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+
+        const backParam = urlParams.get('back');
+
+        if (backParam) {
+            document.getElementsByClassName('read-more-btn')[0].href += `#${backParam}`;
+        }
+    </script>
     <script src="/static/js/script.js"></script>
 </body>
 

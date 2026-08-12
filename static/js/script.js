@@ -1,18 +1,17 @@
-const carouselTrack = document.querySelector('.carousel-track');
 const siteNav = document.querySelector('.site-nav');
 const siteNavToggle = document.querySelector('.site-nav-toggle');
-const carouselRoot = document.querySelector('.novels-carousel');
-const carouselPrev = document.querySelector('.carousel-btn-prev');
-const carouselNext = document.querySelector('.carousel-btn-next');
-const carouselDots = document.querySelector('.carousel-dots');
-const slides = carouselTrack ? Array.from(carouselTrack.querySelectorAll('.book-section')) : [];
-const dotButtons = [];
 const sectionNavLinks = Array.from(document.querySelectorAll('.site-nav-link[href^="#"]'));
 const buyNowTriggers = Array.from(document.querySelectorAll('.buy-now-trigger'));
 
 let buyModal = null;
 let buyModalTitle = null;
 let buyModalOptions = null;
+let buyModalBack = null;
+let currentBuyState = {
+  bookTitle: '',
+  buyOptions: [],
+  eReaders: []
+};
 
 function setBuyModalOpen(isOpen) {
   if (!buyModal) {
@@ -23,26 +22,46 @@ function setBuyModalOpen(isOpen) {
   document.body.classList.toggle('modal-open', isOpen);
 }
 
-function parseBuyOptions(encodedOptions) {
-  if (!encodedOptions) {
-    return [];
+function parseBuyData(encodedData) {
+  if (!encodedData) {
+    return {
+      buyOptions: [],
+      eReaders: []
+    };
   }
 
   try {
-    const parsed = JSON.parse(decodeURIComponent(encodedOptions));
-    if (!Array.isArray(parsed)) {
-      return [];
-    }
+    const parsed = JSON.parse(decodeURIComponent(encodedData));
 
-    return parsed.filter((entry) => {
-      return Array.isArray(entry)
-        && typeof entry[0] === 'string'
-        && typeof entry[1] === 'string'
-        && entry[0].trim()
-        && entry[1].trim();
-    });
+    const buyOptions = Array.isArray(parsed.buyOptions)
+      ? parsed.buyOptions.filter((entry) => {
+          return Array.isArray(entry)
+            && typeof entry[0] === 'string'
+            && typeof entry[1] === 'string'
+            && entry[0].trim()
+            && entry[1].trim();
+        })
+      : [];
+
+    const eReaders = parsed.eReaders && typeof parsed.eReaders === 'object' && !Array.isArray(parsed.eReaders)
+      ? Object.entries(parsed.eReaders).filter((entry) => {
+          return Array.isArray(entry)
+            && typeof entry[0] === 'string'
+            && typeof entry[1] === 'string'
+            && entry[0].trim()
+            && entry[1].trim();
+        })
+      : [];
+
+    return {
+      buyOptions,
+      eReaders
+    };
   } catch (error) {
-    return [];
+    return {
+      buyOptions: [],
+      eReaders: []
+    };
   }
 }
 
@@ -57,7 +76,10 @@ function ensureBuyModal() {
   modal.innerHTML = `
     <div class="buy-modal-backdrop" data-close-buy-modal="true"></div>
     <div class="buy-modal-dialog" role="dialog" aria-modal="true" aria-label="Choose purchase format">
-      <button class="buy-modal-close" type="button" aria-label="Close buy options" data-close-buy-modal="true">x</button>
+      <div class="buy-modal-chrome">
+        <button class="buy-modal-back buy-modal-icon-button" type="button" aria-label="Back to formats" data-buy-action="show-formats">←</button>
+        <button class="buy-modal-close buy-modal-icon-button" type="button" aria-label="Close buy options" data-close-buy-modal="true">x</button>
+      </div>
       <h3 class="buy-modal-title">Choose format</h3>
       <div class="buy-modal-options"></div>
     </div>
@@ -67,6 +89,22 @@ function ensureBuyModal() {
     const closeElement = event.target.closest('[data-close-buy-modal="true"]');
     if (closeElement) {
       setBuyModalOpen(false);
+      return;
+    }
+
+    const actionElement = event.target.closest('[data-buy-action]');
+    if (!actionElement) {
+      return;
+    }
+
+    const action = actionElement.dataset.buyAction;
+    if (action === 'show-ereaders') {
+      renderEReaderOptions();
+      return;
+    }
+
+    if (action === 'show-formats') {
+      renderBuyFormatOptions();
     }
   });
 
@@ -80,18 +118,29 @@ function ensureBuyModal() {
   buyModal = modal;
   buyModalTitle = buyModal.querySelector('.buy-modal-title');
   buyModalOptions = buyModal.querySelector('.buy-modal-options');
+  buyModalBack = buyModal.querySelector('.buy-modal-back');
 }
 
-function openBuyModal(options, bookTitle) {
-  ensureBuyModal();
+function setBuyModalBackVisible(isVisible) {
+  if (!buyModalBack) {
+    return;
+  }
+
+  buyModalBack.style.display = isVisible ? 'inline-flex' : 'none';
+}
+
+function renderBuyFormatOptions() {
   if (!buyModalOptions || !buyModalTitle) {
     return;
   }
 
-  buyModalTitle.textContent = 'Choose format';
+  buyModalTitle.textContent = currentBuyState.bookTitle
+    ? `Choose format for ${currentBuyState.bookTitle}`
+    : 'Choose format';
+  setBuyModalBackVisible(false);
   buyModalOptions.innerHTML = '';
 
-  options.forEach(([formatLabel, linkUrl]) => {
+  currentBuyState.buyOptions.forEach(([formatLabel, linkUrl]) => {
     const optionLink = document.createElement('a');
     optionLink.className = 'read-more-btn buy-option-btn';
     optionLink.href = linkUrl;
@@ -101,18 +150,64 @@ function openBuyModal(options, bookTitle) {
     buyModalOptions.appendChild(optionLink);
   });
 
+  if (currentBuyState.eReaders.length > 0) {
+    const eReaderButton = document.createElement('button');
+    eReaderButton.className = 'read-more-btn buy-option-btn';
+    eReaderButton.type = 'button';
+    eReaderButton.textContent = 'E-book';
+    eReaderButton.dataset.buyAction = 'show-ereaders';
+    buyModalOptions.appendChild(eReaderButton);
+  }
+}
+
+function renderEReaderOptions() {
+  if (!buyModalOptions || !buyModalTitle) {
+    return;
+  }
+
+  buyModalTitle.textContent = currentBuyState.bookTitle
+    ? `Choose e-reader for ${currentBuyState.bookTitle}`
+    : 'Choose e-reader';
+  setBuyModalBackVisible(true);
+  buyModalOptions.innerHTML = '';
+
+  currentBuyState.eReaders.forEach(([readerLabel, linkUrl]) => {
+    const optionLink = document.createElement('a');
+    optionLink.className = 'read-more-btn buy-option-btn';
+    optionLink.href = linkUrl;
+    optionLink.target = '_blank';
+    optionLink.rel = 'noopener noreferrer';
+    optionLink.textContent = readerLabel;
+    buyModalOptions.appendChild(optionLink);
+  });
+}
+
+function openBuyModal(options, bookTitle, eReaders) {
+  ensureBuyModal();
+  if (!buyModalOptions || !buyModalTitle) {
+    return;
+  }
+
+  currentBuyState = {
+    bookTitle: bookTitle || '',
+    buyOptions: options,
+    eReaders: eReaders
+  };
+
+  renderBuyFormatOptions();
+
   setBuyModalOpen(true);
 }
 
 if (buyNowTriggers.length > 0) {
   buyNowTriggers.forEach((trigger) => {
     trigger.addEventListener('click', () => {
-      const options = parseBuyOptions(trigger.dataset.buyOptions || '');
-      if (options.length === 0) {
+      const { buyOptions, eReaders } = parseBuyData(trigger.dataset.buyData || '');
+      if (buyOptions.length === 0 && eReaders.length === 0) {
         return;
       }
 
-      openBuyModal(options, trigger.dataset.bookTitle || '');
+      openBuyModal(buyOptions, trigger.dataset.bookTitle || '', eReaders);
     });
   });
 }
@@ -175,103 +270,115 @@ window.addEventListener('resize', () => {
   }
 });
 
-let activeSlideIndex = 0;
-let isProgrammaticCarouselScroll = false;
-let carouselProgrammaticReleaseId;
-let pendingCarouselIndex = null;
-let pendingCarouselOffsetLeft = 0;
+function initializeCarousel(carouselRoot) {
+  const carouselTrack = carouselRoot.querySelector('.carousel-track');
+  const carouselPrev = carouselRoot.querySelector('.carousel-btn-prev');
+  const carouselNext = carouselRoot.querySelector('.carousel-btn-next');
+  const carouselDots = carouselRoot.querySelector('.carousel-dots');
+  const slides = carouselTrack ? Array.from(carouselTrack.querySelectorAll('.book-section')) : [];
 
-function getNearestCarouselSlideIndex() {
-  if (!carouselTrack || slides.length === 0) {
-    return 0;
-  }
-
-  const currentScroll = carouselTrack.scrollLeft;
-  let nearestIndex = 0;
-  let nearestDistance = Number.POSITIVE_INFINITY;
-
-  slides.forEach((slide, slideIndex) => {
-    const distance = Math.abs(slide.offsetLeft - currentScroll);
-    if (distance < nearestDistance) {
-      nearestDistance = distance;
-      nearestIndex = slideIndex;
-    }
-  });
-
-  return nearestIndex;
-}
-
-function syncActiveCarouselSlideToScrollPosition() {
-  setActiveSlide(getNearestCarouselSlideIndex());
-}
-
-function releaseProgrammaticCarouselScroll(usePendingIndex = false) {
-  isProgrammaticCarouselScroll = false;
-  window.clearTimeout(carouselProgrammaticReleaseId);
-
-  if (usePendingIndex && Number.isInteger(pendingCarouselIndex)) {
-    setActiveSlide(pendingCarouselIndex);
-  } else {
-    syncActiveCarouselSlideToScrollPosition();
-  }
-
-  pendingCarouselIndex = null;
-  pendingCarouselOffsetLeft = 0;
-}
-
-function markCarouselProgrammaticScroll(targetIndex, targetOffsetLeft) {
-  isProgrammaticCarouselScroll = true;
-  pendingCarouselIndex = targetIndex;
-  pendingCarouselOffsetLeft = targetOffsetLeft;
-  window.clearTimeout(carouselProgrammaticReleaseId);
-  // Fallback for browsers that do not fire scrollend reliably.
-  carouselProgrammaticReleaseId = window.setTimeout(() => {
-    releaseProgrammaticCarouselScroll(true);
-  }, 700);
-}
-
-function setActiveSlide(index) {
-  activeSlideIndex = index;
-  slides.forEach((slide, slideIndex) => {
-    slide.classList.toggle('in-view', slideIndex === activeSlideIndex);
-  });
-
-  dotButtons.forEach((dot, dotIndex) => {
-    const isActive = dotIndex === activeSlideIndex;
-    dot.classList.toggle('is-active', isActive);
-    dot.setAttribute('aria-current', isActive ? 'true' : 'false');
-  });
-}
-
-function goToSlide(index, behavior = 'smooth') {
   if (!carouselTrack || slides.length === 0) {
     return;
   }
 
-  const wrappedIndex = (index + slides.length) % slides.length;
-  const isWrapJump = index !== wrappedIndex;
-  const scrollBehavior = isWrapJump ? 'auto' : behavior;
-  const targetSlide = slides[wrappedIndex];
-  markCarouselProgrammaticScroll(wrappedIndex, targetSlide.offsetLeft);
-  carouselTrack.scrollTo({
-    left: targetSlide.offsetLeft,
-    behavior: scrollBehavior
-  });
-  setActiveSlide(wrappedIndex);
-}
+  const dotButtons = [];
+  let activeSlideIndex = 0;
+  let isProgrammaticCarouselScroll = false;
+  let carouselProgrammaticReleaseId;
+  let pendingCarouselIndex = null;
+  let pendingCarouselOffsetLeft = 0;
 
-function getInitialSlideIndex() {
-  const startIndexRaw = carouselRoot?.dataset?.startIndex;
-  const parsedIndex = Number.parseInt(startIndexRaw || '', 10);
+  function setActiveSlide(index) {
+    activeSlideIndex = index;
+    slides.forEach((slide, slideIndex) => {
+      slide.classList.toggle('in-view', slideIndex === activeSlideIndex);
+    });
 
-  if (!Number.isFinite(parsedIndex) || slides.length === 0) {
-    return 0;
+    dotButtons.forEach((dot, dotIndex) => {
+      const isActive = dotIndex === activeSlideIndex;
+      dot.classList.toggle('is-active', isActive);
+      dot.setAttribute('aria-current', isActive ? 'true' : 'false');
+    });
   }
 
-  return Math.min(Math.max(parsedIndex, 0), slides.length - 1);
-}
+  function getNearestCarouselSlideIndex() {
+    const currentScroll = carouselTrack.scrollLeft;
+    let nearestIndex = 0;
+    let nearestDistance = Number.POSITIVE_INFINITY;
 
-if (carouselTrack && slides.length > 0) {
+    slides.forEach((slide, slideIndex) => {
+      const distance = Math.abs(slide.offsetLeft - currentScroll);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestIndex = slideIndex;
+      }
+    });
+
+    return nearestIndex;
+  }
+
+  function syncActiveCarouselSlideToScrollPosition() {
+    setActiveSlide(getNearestCarouselSlideIndex());
+  }
+
+  function releaseProgrammaticCarouselScroll(usePendingIndex = false) {
+    isProgrammaticCarouselScroll = false;
+    window.clearTimeout(carouselProgrammaticReleaseId);
+
+    if (usePendingIndex && Number.isInteger(pendingCarouselIndex)) {
+      setActiveSlide(pendingCarouselIndex);
+    } else {
+      syncActiveCarouselSlideToScrollPosition();
+    }
+
+    pendingCarouselIndex = null;
+    pendingCarouselOffsetLeft = 0;
+  }
+
+  function markCarouselProgrammaticScroll(targetIndex, targetOffsetLeft) {
+    isProgrammaticCarouselScroll = true;
+    pendingCarouselIndex = targetIndex;
+    pendingCarouselOffsetLeft = targetOffsetLeft;
+    window.clearTimeout(carouselProgrammaticReleaseId);
+    // Fallback for browsers that do not fire scrollend reliably.
+    carouselProgrammaticReleaseId = window.setTimeout(() => {
+      releaseProgrammaticCarouselScroll(true);
+    }, 700);
+  }
+
+  function goToSlide(index, behavior = 'smooth') {
+    const wrappedIndex = (index + slides.length) % slides.length;
+    const isWrapJump = index !== wrappedIndex;
+    const scrollBehavior = isWrapJump ? 'auto' : behavior;
+    const targetSlide = slides[wrappedIndex];
+    markCarouselProgrammaticScroll(wrappedIndex, targetSlide.offsetLeft);
+    carouselTrack.scrollTo({
+      left: targetSlide.offsetLeft,
+      behavior: scrollBehavior
+    });
+    setActiveSlide(wrappedIndex);
+  }
+
+  function getInitialSlideIndex() {
+    const requestedSlug = new URLSearchParams(window.location.search).get('novel') || carouselRoot.dataset?.startSlug || '';
+
+    if (requestedSlug) {
+      const matchedIndex = slides.findIndex((slide) => slide.dataset.bookSlug === requestedSlug);
+      if (matchedIndex >= 0) {
+        return matchedIndex;
+      }
+    }
+
+    const startIndexRaw = carouselRoot.dataset?.startIndex;
+    const parsedIndex = Number.parseInt(startIndexRaw || '', 10);
+
+    if (!Number.isFinite(parsedIndex)) {
+      return 0;
+    }
+
+    return Math.min(Math.max(parsedIndex, 0), slides.length - 1);
+  }
+
   if (carouselDots) {
     slides.forEach((_, slideIndex) => {
       const dot = document.createElement('button');
@@ -330,6 +437,11 @@ if (carouselTrack && slides.length > 0) {
     }, 140);
   });
 }
+
+const carouselRoots = Array.from(document.querySelectorAll('.novels-carousel'));
+carouselRoots.forEach((carouselRoot) => {
+  initializeCarousel(carouselRoot);
+});
 
   const swagGallery = document.querySelector('.swag-gallery');
   const swagPrev = document.querySelector('.swag-btn-prev');

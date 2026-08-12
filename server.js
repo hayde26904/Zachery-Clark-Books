@@ -92,7 +92,7 @@ function buildBooksWithSlugs(rawBooks) {
   const booksArray = Object.entries(rawBooks).map(([id, book]) => ({id, ...book}));
 
   return booksArray.map((book) => {
-    const baseSlug = slugify(book.title) || 'book';
+    const baseSlug = slugify(book.id) || 'book';
     const currentCount = slugCounts.get(baseSlug) || 0;
     const nextCount = currentCount + 1;
 
@@ -107,12 +107,17 @@ function buildBooksWithSlugs(rawBooks) {
 
 const books = buildBooksWithSlugs(booksData);
 
+function getStartBookSlug(query) {
+  const novelParam = typeof query?.novel === 'string' ? query.novel.trim() : '';
+  return novelParam;
+}
+
 function getStartSlideIndex(query, allBooks) {
   if (!Array.isArray(allBooks) || allBooks.length === 0) {
     return 0;
   }
 
-  const novelParam = typeof query?.novel === 'string' ? query.novel.trim() : '';
+  const novelParam = getStartBookSlug(query);
   if (novelParam) {
     const matchedIndex = allBooks.findIndex((book) => book.slug === novelParam);
     if (matchedIndex >= 0) {
@@ -142,7 +147,8 @@ app.use(globalLimiter);
 app.get('/', async (req, res) => {
   const visits = await incrementVisitCounter();
   const initialSlideIndex = getStartSlideIndex(req.query, books);
-  res.render('index', { books, initialSlideIndex, swagPreview: swagPreviewData, visits});
+  const initialBookSlug = getStartBookSlug(req.query);
+  res.render('index', { books, initialSlideIndex, initialBookSlug, swagPreview: swagPreviewData, visits});
 });
 
 books.forEach((book) => {

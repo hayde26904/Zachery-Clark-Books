@@ -38,14 +38,14 @@
             <h2 class="mayhem-tagline author">ZC</h2>
         </header>
 
-        <section class="novels-carousel wrap" aria-label="Novel carousel" id="novels-carousel" data-start-index="<%= initialSlideIndex %>">
+        <section class="novels-carousel wrap" aria-label="Novel carousel" id="novels-carousel" data-start-index="<%= initialSlideIndex %>" data-start-slug="<%= typeof initialBookSlug !== 'undefined' && initialBookSlug ? initialBookSlug : '' %>">
             <button class="carousel-btn carousel-btn-prev" type="button" aria-label="Previous novel">&#10094;</button>
             <div class="carousel-track">
                 <% for (let book of books) { %>
 
-                <% if (book.id === "misadventures_of_zeke_and_liz") continue; // skip misadventures in the carousel because it now has its own section %>
+                <% if (book.id === "misadventures_of_zeke_and_liz" || book.id === "the_denver_protocol") continue; // skip misadventures in the carousel because it now has its own section %>
 
-                <section class="book-section fade-section">
+                <section class="book-section fade-section" data-book-slug="<%= book.slug %>">
                     <div class="book-inner wrap">
                         <div class="cover-shell">
                             <% if (book.cover) { %>
@@ -92,7 +92,7 @@
                                 <% } %>
                                 <div class="book-links">
                                     <% if (book.summary) { %>
-                                        <a class="read-more-btn" href="/books/<%= book.slug %>">Read more</a>
+                                        <a class="read-more-btn" href="/books/<%= book.slug %>?back=novels-carousel">Read more</a>
                                     <% } %>
                                     <% const buyOptions = Array.isArray(book.buyLinks)
                                         ? book.buyLinks.flatMap((link) => {
@@ -108,7 +108,7 @@
                                             class="read-more-btn buy-now-trigger"
                                             type="button"
                                             data-book-title="<%= book.title.split('\n').join(' ') %>"
-                                            data-buy-options="<%= encodeURIComponent(JSON.stringify(buyOptions)) %>">
+                                            data-buy-data="<%= encodeURIComponent(JSON.stringify({ buyOptions, eReaders: book.eReaders || null })) %>">
                                             Buy Now
                                         </button>
                                     <% } %>
@@ -124,80 +124,85 @@
         </section>
 
         <!-- Separate section for Misadventures of Zeke and Liz -->
-        <section class="novels-carousel wrap" aria-label="Novel carousel" id="novels-carousel">
+        <section class="novels-carousel wrap" aria-label="Novel carousel" id="misadventures-carousel" data-start-index="<%= initialSlideIndex %>" data-start-slug="<%= typeof initialBookSlug !== 'undefined' && initialBookSlug ? initialBookSlug : '' %>">
+            <button class="carousel-btn carousel-btn-prev" type="button" aria-label="Previous novel">&#10094;</button>
             <div class="carousel-track">
-                <% let book = books.find(book => book.id == "misadventures_of_zeke_and_liz"); %>
-                    <div class="book-inner wrap">
-                        <div class="cover-shell">
-                            <% if (book.cover) { %>
-                                <img src="/<%= book.cover %>" class="book-cover" alt="<%= book.coverAlt %>" />
-                            <% } else { %>
-                                <div class="placeholder-book-cover"><h1 class="placeholder-book-cover-title"><%- book.title.replace('\n', '<br>') %></h1></div>
-                            <% } %>
-                        </div>
-                        <div class="book-copy">
-                            <h2 class="book-title"><%- book.title.replace('\n', '<br>') %></h2>
-                            <h3 class="book-subtitle"><%- book.subtitle || '\u00A0' %></h3>
-                            <div class="book-short-description">
-                                <b><%- book.shortDescription %></b>
-                            </div>
-                            <div class="book-footer">
-                                <% if (book.reviews && book.reviews.length > 0) { %>
-                                    <div class="book-reviews">
-                                    <% book.reviews.forEach((review) => { %>
-                                        <% const rating = Number(review.scoreOutOf5.toFixed(1)) || 0; %>
-                                        <% const clampedRating = Math.floor(rating); %>
-                                        <% const lastStarFillPercent = Math.floor(((rating % 1) * 100)); %>
-                                        <div class="book-review">
-                                            <div class="book-review-copy">
-                                                <p class="book-review-meta">
-                                                    <% if (review.url && review.url.trim()) { %>
-                                                        <a class="book-review-link" href="<%= review.url %>" target="_blank" rel="noopener noreferrer"><strong><%= review.publicationName %></strong></a> • <%= rating %>/5
-                                                    <% } else { %>
-                                                        <strong><%= review.publicationName %></strong> • <%= rating %>/5
-                                                    <% } %>
-                                                </p>
-                                                <p class="book-rating-stars" aria-label="Rated <%= rating.toFixed(1) %> out of 5 on <%= review.publicationName %>">
-                                                    <% for (let starIndex = 0; starIndex < 5; starIndex++) { %>
-                                                        <% const starFillPercentage = (starIndex < clampedRating) ? 100 : lastStarFillPercent %>
-                                                        <span class="book-rating-star" aria-hidden="true">
-                                                            <span class="book-rating-star-empty">★</span>
-                                                            <span class="book-rating-star-filled" style="--star-fill-percentage: <%= starFillPercentage %>%">★</span>
-                                                        </span>
-                                                    <% } %>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    <% }); %>
-                                    </div>
+                <% books.filter(book => book.id === "misadventures_of_zeke_and_liz" || book.id === "the_denver_protocol").forEach((book) => { %>
+                    <section class="book-section fade-section" data-book-slug="<%= book.slug %>">
+                        <div class="book-inner wrap">
+                            <div class="cover-shell">
+                                <% if (book.cover) { %>
+                                    <img src="/<%= book.cover %>" class="book-cover" alt="<%= book.coverAlt %>" />
+                                <% } else { %>
+                                    <div class="placeholder-book-cover"><h1 class="placeholder-book-cover-title"><%- book.title.replace('\n', '<br>') %></h1></div>
                                 <% } %>
-                                <div class="book-links">
-                                    <% if (book.summary) { %>
-                                        <a class="read-more-btn" href="/books/<%= book.slug %>">Read more</a>
+                            </div>
+                            <div class="book-copy">
+                                <h2 class="book-title"><%- book.title.replace('\n', '<br>') %></h2>
+                                <h3 class="book-subtitle"><%- book.subtitle || '\u00A0' %></h3>
+                                <div class="book-short-description">
+                                    <b><%- book.shortDescription %></b>
+                                </div>
+                                <div class="book-footer">
+                                    <% if (book.reviews && book.reviews.length > 0) { %>
+                                        <div class="book-reviews">
+                                        <% book.reviews.forEach((review) => { %>
+                                            <% const rating = Number(review.scoreOutOf5.toFixed(1)) || 0; %>
+                                            <% const clampedRating = Math.floor(rating); %>
+                                            <% const lastStarFillPercent = Math.floor(((rating % 1) * 100)); %>
+                                            <div class="book-review">
+                                                <div class="book-review-copy">
+                                                    <p class="book-review-meta">
+                                                        <% if (review.url && review.url.trim()) { %>
+                                                            <a class="book-review-link" href="<%= review.url %>" target="_blank" rel="noopener noreferrer"><strong><%= review.publicationName %></strong></a> • <%= rating %>/5
+                                                        <% } else { %>
+                                                            <strong><%= review.publicationName %></strong> • <%= rating %>/5
+                                                        <% } %>
+                                                    </p>
+                                                    <p class="book-rating-stars" aria-label="Rated <%= rating.toFixed(1) %> out of 5 on <%= review.publicationName %>">
+                                                        <% for (let starIndex = 0; starIndex < 5; starIndex++) { %>
+                                                            <% const starFillPercentage = (starIndex < clampedRating) ? 100 : lastStarFillPercent %>
+                                                            <span class="book-rating-star" aria-hidden="true">
+                                                                <span class="book-rating-star-empty">★</span>
+                                                                <span class="book-rating-star-filled" style="--star-fill-percentage: <%= starFillPercentage %>%">★</span>
+                                                            </span>
+                                                        <% } %>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        <% }); %>
+                                        </div>
                                     <% } %>
-                                    <% const buyOptions = Array.isArray(book.buyLinks)
-                                        ? book.buyLinks.flatMap((link) => {
-                                            if (!link || typeof link !== 'object') {
-                                                return [];
-                                            }
+                                    <div class="book-links">
+                                        <% if (book.summary) { %>
+                                            <a class="read-more-btn" href="/books/<%= book.slug %>?back=misadventures-carousel">Read more</a>
+                                        <% } %>
+                                        <% const buyOptions = Array.isArray(book.buyLinks)
+                                            ? book.buyLinks.flatMap((link) => {
+                                                if (!link || typeof link !== 'object') {
+                                                    return [];
+                                                }
 
-                                            return Object.entries(link);
-                                        })
-                                        : Object.entries(book.buyLinks || {}); %>
-                                    <% if (buyOptions.length > 0) { %>
-                                        <button
-                                            class="read-more-btn buy-now-trigger"
-                                            type="button"
-                                            data-book-title="<%= book.title.split('\n').join(' ') %>"
-                                            data-buy-options="<%= encodeURIComponent(JSON.stringify(buyOptions)) %>">
-                                            Buy Now
-                                        </button>
-                                    <% } %>
+                                                return Object.entries(link);
+                                            })
+                                            : Object.entries(book.buyLinks || {}); %>
+                                        <% if (buyOptions.length > 0) { %>
+                                            <button
+                                                class="read-more-btn buy-now-trigger"
+                                                type="button"
+                                                data-book-title="<%= book.title.split('\n').join(' ') %>"
+                                                data-buy-data="<%= encodeURIComponent(JSON.stringify({ buyOptions, eReaders: book.eReaders || null })) %>">
+                                                Buy Now
+                                            </button>
+                                        <% } %>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </section>
+                <% }); %>
             </div>
+            <button class="carousel-btn carousel-btn-next" type="button" aria-label="Next novel">&#10095;</button>
         </section>
 
         <section class="author-section wrap" aria-label="About the author" id="author">
