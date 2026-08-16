@@ -2,6 +2,9 @@ const siteNav = document.querySelector('.site-nav');
 const siteNavToggle = document.querySelector('.site-nav-toggle');
 const sectionNavLinks = Array.from(document.querySelectorAll('.site-nav-link[href^="#"]'));
 const buyNowTriggers = Array.from(document.querySelectorAll('.buy-now-trigger'));
+const authorBioContainer = document.querySelector('.author-copy-body');
+const authorBioText = document.querySelector('.author-body');
+const authorBioToggle = document.querySelector('.author-read-more-btn');
 
 let buyModal = null;
 let buyModalTitle = null;
@@ -209,6 +212,41 @@ if (buyNowTriggers.length > 0) {
 
       openBuyModal(buyOptions, trigger.dataset.bookTitle || '', eReaders);
     });
+  });
+}
+
+if (authorBioContainer && authorBioToggle) {
+  authorBioContainer.classList.add('is-collapsed');
+
+  const collapsedAuthorBioHeight = '12.2em';
+
+  function updateAuthorBioHeight() {
+    if (!authorBioText) {
+      return;
+    }
+
+    authorBioText.style.maxHeight = authorBioContainer.classList.contains('is-collapsed')
+      ? collapsedAuthorBioHeight
+      : `${authorBioText.scrollHeight}px`;
+  }
+
+  updateAuthorBioHeight();
+
+  window.requestAnimationFrame(() => {
+    authorBioContainer.classList.add('is-ready');
+  });
+
+  authorBioToggle.addEventListener('click', () => {
+    const isCollapsed = authorBioContainer.classList.toggle('is-collapsed');
+    updateAuthorBioHeight();
+    authorBioToggle.textContent = isCollapsed ? 'Read more' : 'Show less';
+    authorBioToggle.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+  });
+
+  window.addEventListener('resize', () => {
+    if (!authorBioContainer.classList.contains('is-collapsed')) {
+      updateAuthorBioHeight();
+    }
   });
 }
 

@@ -823,10 +823,46 @@ h3.mayhem-tagline {
     color: rgba(240, 236, 226, 0.92);
     max-width: 62ch;
     font-size: clamp(1rem, 1.5vw, 1.2rem);
+    overflow: hidden;
+    transition: max-height 420ms ease, opacity 420ms ease, transform 420ms ease;
+}
+
+.author-copy-body.is-collapsed .author-body {
+    max-height: 12.2em;
+    position: relative;
+    opacity: 0.84;
+    transform: translateY(0.15rem);
+}
+
+.author-copy-body.is-collapsed .author-body::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 5.5em;
+    background: linear-gradient(180deg, rgba(7, 8, 12, 0), rgba(7, 8, 12, 0.84) 68%, rgba(7, 8, 12, 0.98));
+    pointer-events: none;
+    transition: opacity 420ms ease;
+}
+
+.author-read-more-btn {
+    margin-top: 1.2rem;
+}
+
+.author-copy-body.is-ready:not(.is-collapsed) .author-body::after {
+    opacity: 0;
 }
 
 .author-copy .author-tagline + p {
     margin-top: 2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .author-copy .author-body,
+    .author-copy .author-body::after {
+        transition: none;
+    }
 }
 
 .swag-section {
@@ -1219,6 +1255,14 @@ h3.mayhem-tagline {
     .author-copy-body {
         margin-top: 1.2rem;
         text-align: left;
+    }
+
+    .author-copy-body.is-collapsed .author-body {
+        max-height: 11.2em;
+    }
+
+    .author-copy-body.is-collapsed .author-body::after {
+        height: 4.5em;
     }
 
     .author-copy p {
