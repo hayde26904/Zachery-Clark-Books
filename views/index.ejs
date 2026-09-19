@@ -25,7 +25,7 @@
                 <a class="site-nav-link" href="#home">Home</a>
                 <a class="site-nav-link" href="#novels-carousel">Novels</a>
                 <a class="site-nav-link" href="#author">Author</a>
-                <!--<a class="site-nav-link" href="#swag">Swag</a>-->
+                <a class="site-nav-link" href="#swag">Merch</a>
                 <a class="site-nav-link" href="#newsletter">Newsletter</a>
             </div>
         </div>
@@ -244,23 +244,23 @@ Growing up with dreams of adventure, Clark discovered that the real world offere
             </footer>
         </section>
 
-        <!--<section class="swag-section wrap" aria-label="Swag" id="swag">
-            <h2 class="swag-title">Swag</h2>
+        <section class="swag-section wrap" aria-label="Swag" id="swag">
+            <h2 class="swag-title">Mayhem Universe Merchandise</h2>
             <div class="swag-carousel" aria-label="Swag carousel">
-                <button class="swag-btn swag-btn-prev" type="button" aria-label="Previous swag item">&#10094;</button>
+                <!-- <button class="swag-btn swag-btn-prev" type="button" aria-label="Previous swag item">&#10094;</button> -->
                 <div class="swag-gallery">
-                    <% const swagItems = Array.isArray(swagPreview) ? swagPreview : []; %>
+                    <% const swagItems = Array.isArray(swagPreview) ? swagPreview.slice(0,3) : []; %>
                     <% swagItems.forEach((item, itemIndex) => { %>
-                        <% const itemUrl = item.url && item.url.trim() ? item.url : 'https://zachery-clark-books.myshopify.com/collections/swag'; %>
+                        <% const itemUrl = item.url && item.url.trim() ? item.url : 'https://mayhem-universe.printful.me/'; %>
                         <a class="swag-card" href="<%= itemUrl %>" aria-label="View swag item <%= itemIndex + 1 %> in store" target="_blank" rel="noopener noreferrer">
                             <img src="<%= item.image %>" class="swag-item" alt="Swag item <%= itemIndex + 1 %>" />
                         </a>
                     <% }); %>
                 </div>
-                <button class="swag-btn swag-btn-next" type="button" aria-label="Next swag item">&#10095;</button>
+                <!-- <button class="swag-btn swag-btn-next" type="button" aria-label="Next swag item">&#10095;</button> -->
             </div>
-            <a class="read-more-btn swag-store-link" href="https://zachery-clark-books.myshopify.com/collections/swag">View Store</a>
-        </section>-->
+            <a class="read-more-btn swag-store-link" href="https://mayhem-universe.printful.me/">See More</a>
+        </section>
 
         <section class="newsletter-section wrap" aria-label="Newsletter signup" id="newsletter">
             <h2 class="newsletter-title">Newsletter</h2>

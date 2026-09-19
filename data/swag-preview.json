@@ -1,14 +1,28 @@
 [
     {
-        "image": "/assets/img/swagplaceholder.jpg",
+        "image": "/assets/img/merch-preview/buttons.webp",
         "url": ""
     },
     {
-        "image": "/assets/img/swagplaceholder.jpg",
+        "image": "/assets/img/merch-preview/hoodie.webp",
         "url": ""
     },
     {
-        "image": "/assets/img/swagplaceholder.jpg",
+        "image": "/assets/img/merch-preview/mug.webp",
+        "url": ""
+    },
+    {
+        "image": "/assets/img/merch-preview/hat.webp",
+        "url": ""
+    },
+    {
+        "image": "/assets/img/merch-preview/beanie.webp",
+        "url": ""
+    },
+    
+    
+    {
+        "image": "/assets/img/merch-preview/bag.webp",
         "url": ""
     }
 ]

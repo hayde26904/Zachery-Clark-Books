@@ -1335,7 +1335,7 @@ h3.mayhem-tagline {
     }
 
     .swag-title {
-        font-size: clamp(3.4rem, 15vw, 5rem);
+        font-size: clamp(3.4rem, 13vw, 3rem);
     }
 
     .swag-store-link {
