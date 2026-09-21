@@ -51,12 +51,24 @@
 
         playPauseBtn.addEventListener('click', () => {
             if (audio.paused) {
+
+                // make sure all other players are paused
+                for (const audio of Array.from(document.getElementsByClassName('audio-player-audio'))) {
+                    audio.pause();
+                }
+
                 audio.play();
-                playPauseBtn.textContent = '❚❚';
             } else {
                 audio.pause();
-                playPauseBtn.textContent = '▶';
             }
+        });
+
+        audio.addEventListener('pause', () => {
+            playPauseBtn.textContent = '▶';
+        });
+
+        audio.addEventListener('play', () => {
+            playPauseBtn.textContent = '❚❚';
         });
 
         audio.addEventListener('timeupdate', () => {
