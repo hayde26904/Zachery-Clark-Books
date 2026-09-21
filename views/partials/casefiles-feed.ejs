@@ -1,0 +1,80 @@
+<% if (feedData) { %>
+    
+    <% for (item of feedData.items) { %>
+
+        <div class="case-files-entry">
+            <h2 class="case-file-title"><%= item.title %></h2>
+            <img class="case-file-img" src="<%= item.itunes.image %>">
+            <p class="case-file-summary"><%- item.itunes.summary%></p>
+            <a class="case-file-link" href="<%= item.link %>"><img class="case-file-spotify-btn" src="assets/buttons/listenonspotify.png"></a>
+            <div class="audio-player">
+                <audio class="audio-player-audio" src="<%= item.enclosure.url %>"></audio>
+                <button class="audio-player-play-btn">▶</button>
+                <div class="audio-timeline-container">
+                    <span class="audio-player-time">0:00</span>
+                    <input type="range" class="audio-player-seek" max="100" value="0">
+                    <span class="audio-player-duration">0:00</span>
+                </div>
+            </div>
+        </div>
+
+<%     } %>
+
+
+<% } else { %>
+    Could not load feed.
+<% } %>
+
+<script>
+
+    const audioPlayers = Array.from(document.getElementsByClassName('audio-player'));
+
+    function formatTime(secs) {
+        const minutes = Math.floor(secs / 60);
+        const seconds = Math.floor(secs % 60);
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    };
+
+    for (const player of audioPlayers) {
+
+        const audio = player.querySelector('[class="audio-player-audio"]');
+        const playPauseBtn = player.querySelector('[class="audio-player-play-btn"]');
+        const timeline = player.querySelector('[class="audio-timeline-container"]');
+        const currentTimeSpan = timeline.querySelector('[class="audio-player-time"]');
+        const seekSlider = timeline.querySelector('[class="audio-player-seek"]');
+        const durationSpan = timeline.querySelector('[class="audio-player-duration"]');
+
+        audio.addEventListener('loadedmetadata', () => {
+            seekSlider.max = Math.floor(audio.duration);
+            durationSpan.textContent = formatTime(audio.duration);
+        });
+
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.textContent = '❚❚';
+            } else {
+                audio.pause();
+                playPauseBtn.textContent = '▶';
+            }
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            seekSlider.value = Math.floor(audio.currentTime);
+            currentTimeSpan.textContent = formatTime(audio.currentTime);
+        });
+
+        seekSlider.addEventListener('input', () => {
+            audio.currentTime = seekSlider.value;
+            currentTimeSpan.textContent = formatTime(seekSlider.value);
+        });
+
+        audio.addEventListener('ended', () => {
+            playPauseBtn.textContent = '▶';
+            seekSlider.value = 0;
+            currentTimeSpan.textContent = '0:00';
+        });
+
+    }
+
+</script>

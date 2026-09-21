@@ -4,6 +4,8 @@ require('dotenv').config();
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const crypto = require('crypto');
+const RSSParser = require('rss-parser');
+const rssParser = new RSSParser();
 const rateLimit = require('express-rate-limit');
 const { dbGet, dbRun, dbGetAll } = require('./database');
 const { getSubscribers, createSubscribersSpreadsheet } = require('./subscribers-spreadsheet-maker');
@@ -18,7 +20,9 @@ const databaseDir = path.join(__dirname, 'database');
 const databasePath = path.join(databaseDir, 'newsletter.sqlite');
 const databaseInitScriptPath = path.join(databaseDir, 'init.sql');
 
-const newsletterPassword = process.env.NEWSLETTER_PASSWORD
+const newsletterPassword = process.env.NEWSLETTER_PASSWORD;
+
+const caseFilesRSSURL = process.env.CASEFILES_RSS_URL;
 
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -145,10 +149,21 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(globalLimiter);
 
 app.get('/', async (req, res) => {
+
   const visits = await incrementVisitCounter();
+  const caseFilesFeed = await rssParser.parseURL(caseFilesRSSURL);
+
   const initialSlideIndex = getStartSlideIndex(req.query, books);
   const initialBookSlug = getStartBookSlug(req.query);
-  res.render('index', { books, initialSlideIndex, initialBookSlug, swagPreview: swagPreviewData, visits});
+
+  res.render('index', { books, 
+    initialSlideIndex, 
+    initialBookSlug, 
+    swagPreview: swagPreviewData,
+    caseFilesFeed,
+    visits
+  });
+
 });
 
 books.forEach((book) => {

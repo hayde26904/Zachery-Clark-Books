@@ -284,6 +284,29 @@ Growing up with dreams of adventure, Clark discovered that the real world offere
         <center><h1><%= visits %></h1></center><br>
     </main>
 
+    <% if (caseFilesFeed) { %>
+        <aside class="case-files-widget" aria-label="Case files quick access">
+            <button class="case-files-toggle" type="button" aria-expanded="false" aria-controls="case-files-panel">
+                CASE FILES
+            </button>
+            <div class="case-files-panel" id="case-files-panel" aria-hidden="true">
+                <div class="case-files-panel-header">
+                    <div>
+                        <h2 class="case-files-title">Case files</h2>
+                    </div>
+                    <button class="case-files-minimize" type="button" aria-label="Minimize case files">
+                        X
+                    </button>
+                </div>
+                <div class="case-files-scroll">
+                    <div class="case-files-items">
+                        <%- include('partials/casefiles-feed', {feedData: caseFilesFeed}) %>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    <% } %>
+
     <script src="/static/js/script.js"></script>
     <script>
 

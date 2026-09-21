@@ -1,6 +1,10 @@
 const siteNav = document.querySelector('.site-nav');
 const siteNavToggle = document.querySelector('.site-nav-toggle');
 const sectionNavLinks = Array.from(document.querySelectorAll('.site-nav-link[href^="#"]'));
+const caseFilesWidget = document.querySelector('.case-files-widget');
+const caseFilesToggle = document.querySelector('.case-files-toggle');
+const caseFilesPanel = document.querySelector('.case-files-panel');
+const caseFilesMinimize = document.querySelector('.case-files-minimize');
 const buyNowTriggers = Array.from(document.querySelectorAll('.buy-now-trigger'));
 const authorBioContainer = document.querySelector('.author-copy-body');
 const authorBioText = document.querySelector('.author-body');
@@ -10,11 +14,48 @@ let buyModal = null;
 let buyModalTitle = null;
 let buyModalOptions = null;
 let buyModalBack = null;
+let isCaseFilesOpen = false;
 let currentBuyState = {
   bookTitle: '',
   buyOptions: [],
   eReaders: []
 };
+
+function setCaseFilesOpen(isOpen) {
+  if (!caseFilesWidget || !caseFilesToggle || !caseFilesPanel) {
+    return;
+  }
+
+  isCaseFilesOpen = isOpen;
+  caseFilesWidget.classList.toggle('is-open', isOpen);
+  caseFilesToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  caseFilesPanel.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+}
+
+if (caseFilesToggle && caseFilesPanel) {
+  caseFilesToggle.addEventListener('click', () => {
+    setCaseFilesOpen(!isCaseFilesOpen);
+  });
+
+  caseFilesMinimize?.addEventListener('click', () => {
+    setCaseFilesOpen(false);
+  });
+
+  caseFilesPanel.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href^="#"]');
+    if (!link) {
+      return;
+    }
+
+    setCaseFilesOpen(false);
+  });
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && isCaseFilesOpen) {
+      setCaseFilesOpen(false);
+    }
+  });
+}
 
 function setBuyModalOpen(isOpen) {
   if (!buyModal) {
