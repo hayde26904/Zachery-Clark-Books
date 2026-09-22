@@ -104,13 +104,22 @@
                                         })
                                         : Object.entries(book.buyLinks || {}); %>
                                     <% if (buyOptions.length > 0) { %>
-                                        <button
-                                            class="read-more-btn buy-now-trigger"
-                                            type="button"
-                                            data-book-title="<%= book.title.split('\n').join(' ') %>"
-                                            data-buy-data="<%= encodeURIComponent(JSON.stringify({ buyOptions, eReaders: book.eReaders || null })) %>">
-                                            Buy Now
-                                        </button>
+                                        <% if (book.eReaders) { %>
+                                            <button
+                                                class="read-more-btn buy-now-trigger"
+                                                type="button"
+                                                data-book-title="<%= book.title.split('\n').join(' ') %>"
+                                                data-buy-data="<%= encodeURIComponent(JSON.stringify({ buyOptions, eReaders: book.eReaders || null })) %>"
+                                                data-action="show-ereaders">
+                                                Buy E-Book
+                                            </button>
+                                        <% } %>
+                                        <% let audiobookOption = buyOptions.find(entry => entry[0] === "Audiobook"); %>
+                                        <% if (audiobookOption) { %>
+                                            <a href="<%= audiobookOption[1] %>"
+                                                <button class="read-more-btn" type="button">Buy Audiobook</button>
+                                            </a>
+                                        <% } %>
                                     <% } %>
                                 </div>
                             </div>
@@ -121,6 +130,10 @@
             </div>
             <!--<div class="carousel-dots" aria-label="Novel slide indicators"></div>-->
             <button class="carousel-btn carousel-btn-next" type="button" aria-label="Next novel">&#10095;</button>
+
+            <center>
+                <a href="http://mayhem-universe.square.site/"><button class="read-more-btn swag-store-link" aria-label="View Store">View Store</button></a>
+            </center>
         </section>
 
         <!-- Separate section for Misadventures of Zeke and Liz -->
@@ -174,27 +187,36 @@
                                         </div>
                                     <% } %>
                                     <div class="book-links">
-                                        <% if (book.summary) { %>
-                                            <a class="read-more-btn" href="/books/<%= book.slug %>?back=misadventures-carousel">Read more</a>
-                                        <% } %>
-                                        <% const buyOptions = Array.isArray(book.buyLinks)
-                                            ? book.buyLinks.flatMap((link) => {
-                                                if (!link || typeof link !== 'object') {
-                                                    return [];
-                                                }
+                                    <% if (book.summary) { %>
+                                        <a class="read-more-btn" href="/books/<%= book.slug %>?back=novels-carousel">Read more</a>
+                                    <% } %>
+                                    <% const buyOptions = Array.isArray(book.buyLinks)
+                                        ? book.buyLinks.flatMap((link) => {
+                                            if (!link || typeof link !== 'object') {
+                                                return [];
+                                            }
 
-                                                return Object.entries(link);
-                                            })
-                                            : Object.entries(book.buyLinks || {}); %>
-                                        <% if (buyOptions.length > 0) { %>
+                                            return Object.entries(link);
+                                        })
+                                        : Object.entries(book.buyLinks || {}); %>
+                                    <% if (buyOptions.length > 0) { %>
+                                        <% if (book.eReaders) { %>
                                             <button
                                                 class="read-more-btn buy-now-trigger"
                                                 type="button"
                                                 data-book-title="<%= book.title.split('\n').join(' ') %>"
-                                                data-buy-data="<%= encodeURIComponent(JSON.stringify({ buyOptions, eReaders: book.eReaders || null })) %>">
-                                                Buy Now
+                                                data-buy-data="<%= encodeURIComponent(JSON.stringify({ buyOptions, eReaders: book.eReaders || null })) %>"
+                                                data-action="show-ereaders">
+                                                Buy E-Book
                                             </button>
                                         <% } %>
+                                        <% let audiobookOption = buyOptions.find(entry => entry[0] === "Audiobook"); %>
+                                        <% if (audiobookOption) { %>
+                                            <a href="<%= audiobookOption[1] %>"
+                                                <button class="read-more-btn" type="button">Buy Audiobook</button>
+                                            </a>
+                                        <% } %>
+                                    <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -203,6 +225,10 @@
                 <% }); %>
             </div>
             <button class="carousel-btn carousel-btn-next" type="button" aria-label="Next novel">&#10095;</button>
+
+            <center>
+                <a href="http://mayhem-universe.square.site/"><button class="read-more-btn swag-store-link" aria-label="View Store">View Store</button></a>
+            </center>
         </section>
 
         <section class="author-section wrap" aria-label="About the author" id="author">

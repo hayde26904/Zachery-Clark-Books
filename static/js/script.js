@@ -121,7 +121,7 @@ function ensureBuyModal() {
     <div class="buy-modal-backdrop" data-close-buy-modal="true"></div>
     <div class="buy-modal-dialog" role="dialog" aria-modal="true" aria-label="Choose purchase format">
       <div class="buy-modal-chrome">
-        <button class="buy-modal-back buy-modal-icon-button" type="button" aria-label="Back to formats" data-buy-action="show-formats">←</button>
+        <!--<button class="buy-modal-back buy-modal-icon-button" type="button" aria-label="Back to formats" data-buy-action="show-formats">←</button>-->
         <button class="buy-modal-close buy-modal-icon-button" type="button" aria-label="Close buy options" data-close-buy-modal="true">x</button>
       </div>
       <h3 class="buy-modal-title">Choose format</h3>
@@ -226,7 +226,7 @@ function renderEReaderOptions() {
   });
 }
 
-function openBuyModal(options, bookTitle, eReaders) {
+function openBuyModal(options, bookTitle, eReaders, action) {
   ensureBuyModal();
   if (!buyModalOptions || !buyModalTitle) {
     return;
@@ -238,7 +238,13 @@ function openBuyModal(options, bookTitle, eReaders) {
     eReaders: eReaders
   };
 
-  renderBuyFormatOptions();
+  //renderBuyFormatOptions();
+
+  switch (action) {
+    case "show-ereaders":
+      renderEReaderOptions();
+      break;
+  }
 
   setBuyModalOpen(true);
 }
@@ -251,7 +257,7 @@ if (buyNowTriggers.length > 0) {
         return;
       }
 
-      openBuyModal(buyOptions, trigger.dataset.bookTitle || '', eReaders);
+      openBuyModal(buyOptions, trigger.dataset.bookTitle || '', eReaders, trigger.dataset.action);
     });
   });
 }
