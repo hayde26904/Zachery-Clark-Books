@@ -111,13 +111,13 @@
                                                 data-book-title="<%= book.title.split('\n').join(' ') %>"
                                                 data-buy-data="<%= encodeURIComponent(JSON.stringify({ buyOptions, eReaders: book.eReaders || null })) %>"
                                                 data-action="show-ereaders">
-                                                Buy E-Book
+                                                E-Book
                                             </button>
                                         <% } %>
                                         <% let audiobookOption = buyOptions.find(entry => entry[0] === "Audiobook"); %>
                                         <% if (audiobookOption) { %>
                                             <a href="<%= audiobookOption[1] %>"
-                                                <button class="read-more-btn" type="button">Buy Audiobook</button>
+                                                <button class="read-more-btn" type="button">Audiobook</button>
                                             </a>
                                         <% } %>
                                     <% } %>
@@ -207,13 +207,13 @@
                                                 data-book-title="<%= book.title.split('\n').join(' ') %>"
                                                 data-buy-data="<%= encodeURIComponent(JSON.stringify({ buyOptions, eReaders: book.eReaders || null })) %>"
                                                 data-action="show-ereaders">
-                                                Buy E-Book
+                                                E-Book
                                             </button>
                                         <% } %>
                                         <% let audiobookOption = buyOptions.find(entry => entry[0] === "Audiobook"); %>
                                         <% if (audiobookOption) { %>
                                             <a href="<%= audiobookOption[1] %>"
-                                                <button class="read-more-btn" type="button">Buy Audiobook</button>
+                                                <button class="read-more-btn" type="button">Audiobook</button>
                                             </a>
                                         <% } %>
                                     <% } %>
